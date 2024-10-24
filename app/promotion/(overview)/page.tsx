@@ -1,4 +1,6 @@
-import { lusitana } from '@/app/ui/fonts';
+import { CardTranslucid } from '@/app/ui/components/card-translucid';
+import { TextInput } from '@/app/ui/components/form-fields/input';
+import { PromotionWelcomeForm } from '@/app/ui/components/promotion/promotion-welcome-form';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -9,9 +11,9 @@ export default async function Page() {
   
   return (
     <main>
-      <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Bienvenida
-      </h1>
+      <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://imageio.forbes.com/specials-images/imageserve/656df61cc3a44648c235dde3/Las-Vegas--Nevada--USA-at-the-Welcome-Sign/960x0.jpg?format=jpg&width=960')" }} >
+        <PromotionWelcomeForm />
+      </div>
     </main>
   );
 }

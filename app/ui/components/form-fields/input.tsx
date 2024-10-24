@@ -83,15 +83,15 @@ export default function Input({ id, name, placeholder, className, defaultValue, 
             max={max}
             placeholder={ placeholder ? placeholder : '' }
             className={ clsx(
-              className ? className : null,
-              "peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-700 text-gray-700"
+              "peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-2xl outline-2 placeholder:text-gray-700 text-gray-700",
+              className ? className : null
             )}
             aria-describedby={`${id}-error`}
             defaultValue={ defaultValue }
             disabled = {disabled}
           />
           { icon ? 
-          <DynamicHeroIcon className='pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500' icon={icon} solid={false}/> 
+          <DynamicHeroIcon className='pointer-events-none absolute left-3 top-1/2 h-[24px] w-[24px] -translate-y-1/2 text-gray-500' icon={icon} solid={false}/> 
           : null}
         </div>
         <div id={`${id}-error`} aria-live="polite" aria-atomic="true">
