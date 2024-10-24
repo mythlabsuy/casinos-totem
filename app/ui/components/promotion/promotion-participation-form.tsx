@@ -53,6 +53,6 @@ export function PromotionParticipationForm() {
 
   function participate(){
     console.log("TADAAA2!!!")
-    router.push('/promotion/registration')
+    router.push('/promotion/confirmation')
   }
 }
