@@ -13,7 +13,7 @@ interface Props {
 export function CardTranslucid({ children, title, onClickCallback, btnText, btnClassName}: Props) {
   return (
     <div className="bg-white/50 backdrop-blur-lg rounded-3xl px-24">
-      <div className="px-4 py-5 sm:p-6 justify-center items-center flex flex-col h-80">
+      <div className="px-4 py-5 sm:p-6 justify-center items-center flex flex-col">
         <h3 className="text-3xl font-bold leading-6 text-gray-900 uppercase">{ title }</h3>
         <div className="mt-2 max-w-xl text-sm text-gray-500">
           { children }

@@ -69,7 +69,7 @@ export function NumberInput({ id, name, placeholder, className, defaultValue = 0
 export default function Input({ id, name, placeholder, className, defaultValue, label = '', icon, errors, type, step, min, max, disabled = false }: InputProps ) {
   return (
     <>
-      <label htmlFor={id} className="mb-2 ml-1 block text-sm font-medium text-gray-700">
+      <label htmlFor={id} className="mb-2 ml-1 block text-2xl font-medium text-gray-700">
         {label}
       </label>
       <div className="relative mt-2 rounded-md">
