@@ -13,13 +13,13 @@ export function PromotionWelcomeForm() {
       btnClassName={`flex h-10 items-center justify-items-center rounded-2xl bg-primary-600 px-20 py-8 text-2xl font-medium text-white 
         transition-colors hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 
         focus-visible:outline-offset-2 focus-visible:outline-primary-600 uppercase w-96`}> 
-        <TextInput id={'participate'} className="bg-transparent border-black mt-8 mb-4 px-16" icon="MagnifyingGlassIcon"></TextInput>
+        <TextInput id={'document'} name="document" className="w-96 text-2xl rounded-2xl bg-transparent border-black mt-8 mb-4" icon="MagnifyingGlassIcon"></TextInput>
       </CardTranslucid>
     </div>
   );
 
   function participate(){
-    console.log("TADAAA!!!")
+    console.log("TADAAA2!!!")
     router.push('/promotion/registration')
   }
 }
