@@ -1,5 +1,3 @@
-import { CardTranslucid } from '@/app/ui/components/card-translucid';
-import { TextInput } from '@/app/ui/components/form-fields/input';
 import { PromotionWelcomeForm } from '@/app/ui/components/promotion/promotion-welcome-form';
 import { Metadata } from 'next';
 
