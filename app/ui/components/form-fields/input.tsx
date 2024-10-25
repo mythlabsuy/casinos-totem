@@ -10,6 +10,7 @@ interface BaseInputProps {
   icon?: string;
   errors?: string[];
   disabled?: boolean;
+  readOnly?: boolean;
 }
 
 interface InputProps extends BaseInputProps {
@@ -31,7 +32,7 @@ interface NumberInputProps extends BaseInputProps {
   max?: number;
 }
 
-export function TextInput({ id, name, placeholder, className, defaultValue = '', label = '', icon, errors, disabled = false }: TextInputProps ) {
+export function TextInput({ id, name, placeholder, className, defaultValue = '', label = '', icon, errors, disabled = false, ...rest }: TextInputProps ) {
   return (
     <Input id={id} 
     name={name} 
@@ -43,11 +44,12 @@ export function TextInput({ id, name, placeholder, className, defaultValue = '',
     errors={errors} 
     type='text' 
     disabled = {disabled}
+    {...rest}
     />
   );
 }
 
-export function NumberInput({ id, name, placeholder, className, defaultValue = 0, label = '', icon, errors, step = 1, min, max, disabled = false }: NumberInputProps ) {
+export function NumberInput({ id, name, placeholder, className, defaultValue = 0, label = '', icon, errors, step = 1, min, max, disabled = false, ...rest }: NumberInputProps ) {
   return (
     <Input id={id} 
     name={name} 
@@ -62,11 +64,12 @@ export function NumberInput({ id, name, placeholder, className, defaultValue = 0
     min={min}
     max={max} 
     disabled = {disabled}
+    {...rest}
     />
   );
 }
 
-export default function Input({ id, name, placeholder, className, defaultValue, label = '', icon, errors, type, step, min, max, disabled = false }: InputProps ) {
+export default function Input({ id, name, placeholder, className, defaultValue, label = '', icon, errors, type, step, min, max, disabled = false, ...rest }: InputProps ) {
   return (
     <>
       <label htmlFor={id} className="mb-2 ml-1 block text-2xl font-medium text-gray-700">
@@ -89,6 +92,7 @@ export default function Input({ id, name, placeholder, className, defaultValue, 
             aria-describedby={`${id}-error`}
             defaultValue={ defaultValue }
             disabled = {disabled}
+            {...rest}
           />
           { icon ? 
           <DynamicHeroIcon className='pointer-events-none absolute left-3 top-1/2 h-[24px] w-[24px] -translate-y-1/2 text-black' icon={icon} solid={false}/> 

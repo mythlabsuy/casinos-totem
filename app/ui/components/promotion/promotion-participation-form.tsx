@@ -11,10 +11,11 @@ import { createOrUpdateParticipant, ParticipateFormState } from '@/app/lib/actio
 import { SubmitButton } from "../../button";
 
 interface Props {
+  doc_number: string;
   participant?: Participant;
 }
 
-export function PromotionParticipationForm({ participant }: Props) {
+export function PromotionParticipationForm({ participant, doc_number }: Props) {
   const initialState: ParticipateFormState = { message: null, errors: {}, formData: {} };
 
   const router = useRouter()
@@ -38,23 +39,30 @@ export function PromotionParticipationForm({ participant }: Props) {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <CardTranslucid title='Participá por una promocion de un auto 0KM'> 
+        <div className="text-2xl text-gray-700">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, illum, earum consequuntur vero neque optio mollitia aliquid veritatis, magnam tempore vel nesciunt. Molestiae omnis nostrum quaerat temporibus expedita tempore maxime!
+        </div>
         <form action={formAction}>
           <div className="pt-4">
-            <TextInput id={'document'} name="document" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="IdentificationIcon"
-            label="Documento" disabled={true}/>
+            <TextInput id='document' name="document" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="IdentificationIcon"
+            defaultValue={formData.document || doc_number || ''}
+            label="Documento" readOnly/>
           </div>
           <div className="pt-4">
-            <TextInput id={'full_name'} name="full_name" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="UserIcon"
+            <TextInput id='full_name' name="full_name" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="UserIcon"
+            defaultValue={formData.phone_number || participant?.phone_number || ''}
             errors={state.errors ? state.errors.full_name : undefined} 
             label="Nombre y Apellido"/>
           </div>
           <div className="flex w-full pt-4">
             <div className="w-1/4 pr-1">
               <TextInput id={'phone_area_code'} name="phone_area_code" className="text-2xl rounded-2xl bg-transparent border-black" icon="PlusIcon" 
+              defaultValue={formData.phone_area_code || participant?.phone_number.split(' ')[0] || ''}
               label="Prefijo"/>
             </div>
             <div className="w-3/4">
               <TextInput id={'phone_number'} name="phone_number" className="text-2xl rounded-2xl bg-transparent border-black" icon="DevicePhoneMobileIcon" 
+              defaultValue={formData.phone_number || participant?.phone_number.split(' ')[1] || ''}
               label="Teléfono"/>
             </div>
           </div>
@@ -64,7 +72,8 @@ export function PromotionParticipationForm({ participant }: Props) {
           </div> : null}
           <div className="pt-4">
             <TextInput id={'email'} name="email" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="AtSymbolIcon"
-            errors={state.errors ? state.errors.phone_number : undefined} 
+            defaultValue={formData.email || participant?.email || ''}
+            errors={state.errors ? state.errors.email : undefined} 
             label="E-Mail"/>
           </div>
           <div className="mt-4">

@@ -34,7 +34,7 @@ const ParticipateFormSchema = z.object({
   }).min(1, {message: 'Por favor ingrese un número de teléfono.'}),
   email: z.string({
     required_error: 'Por favor ingrese su E-mail.',
-  }).min(1,{message: 'Por favor ingrese su E-mail.'}),
+  }).email("Por favor ingrese un mail válido (ejemplo@gmail.com)."),
   is_over_18: z.boolean().refine((value) => value === true, {
     message: "Debe ser mayor de 18 para participar.",
   }),
@@ -54,9 +54,9 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
     phone_area_code: formData.get('phone_area_code'),
     phone_number: formData.get('phone_number'),
     email: formData.get('email'),
-    is_over_18: formData.get('is_over_18') === 'on',
-    accepts_tos: formData.get('accepts_tos') === 'on',
-    accepts_privacy_policy: formData.get('accepts_privacy_policy') === 'on',
+    is_over_18: formData.get('is_over_18') === 'true',
+    accepts_tos: formData.get('accepts_tos') === 'true',
+    accepts_privacy_policy: formData.get('accepts_privacy_policy') === 'true',
   });
 
   if (!validatedFields.success) {
