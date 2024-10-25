@@ -21,7 +21,6 @@ export function PromotionConfirmation() {
   );
 
   function backToHome(){
-    console.log("TADAAA2!!!")
     router.push('/promotion')
   }
 }
