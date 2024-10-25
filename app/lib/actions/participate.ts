@@ -80,6 +80,8 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
       accepts_terms_of_service: accepts_tos
     }
 
+    //TODO register participant
+
     // const orderId = formData.get('order_id'); //On add this will be null
     // const method = orderId ? 'PUT' : 'POST';
     // const path = orderId ? `order/admin/${orderId}` : 'order/admin/';

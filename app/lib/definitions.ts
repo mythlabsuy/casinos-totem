@@ -48,6 +48,10 @@ export type Participant = {
   over_18: boolean;
 }
 
+export type Welcome = {
+  document_number?: string;
+}
+
 
 //HERMES
 export type Role = {

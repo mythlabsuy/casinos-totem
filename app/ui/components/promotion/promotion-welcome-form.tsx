@@ -1,25 +1,46 @@
 'use client'
 
+import { useActionState, useEffect, useState } from "react";
 import { CardTranslucid } from "../card-translucid";
 import { TextInput } from "../form-fields/input";
 import { useRouter } from 'next/navigation';
+import { WelcomeFormState, validateParticipant } from "@/app/lib/actions/welcome";
+import { SubmitButton } from "../../button";
 
 export function PromotionWelcomeForm() {
   const router = useRouter()
 
+  const initialState: WelcomeFormState = { message: null, errors: {}, formData: {} };
+  const [state, formAction] = useActionState(validateParticipant, initialState);
+  const [formData, setFormData] = useState<any>({});
+
+  useEffect(() => {
+    if (state.errors) {
+      setFormData(state.formData || {});
+    }
+  }, [state]);
+
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <CardTranslucid title='Ingresa tu documento para participar' onClickCallback={() => { participate() }} btnText='Participar' 
-      btnClassName={`flex h-10 items-center justify-items-center rounded-2xl bg-primary-600 px-20 py-8 text-2xl font-medium text-white 
-        transition-colors hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 
-        focus-visible:outline-offset-2 focus-visible:outline-primary-600 uppercase w-96`}> 
-        <TextInput id={'participate'} className="bg-transparent border-black mt-8 mb-4 px-16" icon="MagnifyingGlassIcon"></TextInput>
-      </CardTranslucid>
-    </div>
+        <CardTranslucid title='Ingresa tu documento para participar'> 
+          <form action={formAction}>
+            <TextInput id={'document'} className="bg-transparent border-black mt-8 mb-4 px-16" 
+              errors={state.errors ? state.errors.document : undefined} 
+              defaultValue={formData.document || ''}
+              icon="MagnifyingGlassIcon"/>
+
+            <div className="mt-6 flex justify-center">
+              <SubmitButton type="submit" className="flex h-10 items-center justify-items-center rounded-2xl bg-primary-600 py-8 text-2xl 
+                font-medium text-white transition-colors hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 
+                focus-visible:outline-offset-2 focus-visible:outline-primary-600 uppercase w-96 text-center mt-4">Participar Ahora</SubmitButton>
+            </div>
+          </form>
+        </CardTranslucid>
+      </div>
   );
 
   function participate(){
     console.log("TADAAA!!!")
-    router.push('/promotion/registration')
+    router.push(`/promotion/registration/${'1234567890'}`)
   }
 }
