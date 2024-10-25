@@ -105,10 +105,10 @@ export default function Input({ id, name, placeholder, className, defaultValue, 
 
 export function FormFieldsErrors({ errors } : {errors: string[]}) {
   return (
-    <div className="rounded-md bg-red-50 pr-4 py-1">
+    <div className="bg-red-200 pr-4 py-1">
       <div className="flex">
         <div className="ml-0">
-          <div className="mt-0 text-sm text-red-700">
+          <div className="mt-0 text-lg text-red-700">
             <ul role="list" className="list-none space-y-1 pl-5">
             { errors.map((error: string) => (
                 <li key={error}>

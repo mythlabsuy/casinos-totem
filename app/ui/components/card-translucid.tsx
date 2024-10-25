@@ -1,12 +1,13 @@
 'use client'
 
+import { SubmitButton } from "../button";
 import { Button } from "./button";
 
 interface Props {
   title?: string,
-  onClickCallback: Function,
-  btnText: string,
-  btnClassName: string,
+  onClickCallback?: Function,
+  btnText?: string,
+  btnClassName?: string,
   children?: React.ReactNode;
 }
 
@@ -19,11 +20,13 @@ export function CardTranslucid({ children, title, onClickCallback, btnText, btnC
           { children }
         </div>
         <div className="mt-5">
-        <Button onClickCallback={() => onClickCallback()} className={ !btnClassName ? `flex h-10 items-center justify-items-center rounded-lg bg-primary-600 px-4 text-sm font-medium text-white 
-      transition-colors hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 
-      focus-visible:outline-offset-2 focus-visible:outline-primary-600` : btnClassName}>
-          {btnText}
-        </Button>
+          {
+            onClickCallback ? <Button onClickCallback={() => onClickCallback()} className={ !btnClassName ? `flex h-10 items-center justify-items-center rounded-lg bg-primary-600 px-4 text-sm font-medium text-white 
+              transition-colors hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 
+              focus-visible:outline-offset-2 focus-visible:outline-primary-600` : btnClassName}>
+                  {btnText}
+                </Button> : null
+          }
         </div>
       </div>
     </div>

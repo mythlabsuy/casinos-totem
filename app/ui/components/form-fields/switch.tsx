@@ -18,7 +18,7 @@ export default function SwitchWithIcon({ id, label, iconEnabled = 'HomeIcon', ic
 
   return (
     <>
-      <label htmlFor={`${id}_switch`} className="mb-2 ml-1 block text-sm font-medium text-gray-700">
+      <label htmlFor={`${id}_switch`} className="mb-2 ml-1 block text-2xl font-medium text-gray-700">
         {label}
       </label>
       <input id={id} name={id} type='hidden' value={String(enabled)}/>

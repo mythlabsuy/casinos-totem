@@ -37,6 +37,17 @@ export type Premise = {
   disabled: boolean;
 }
 
+export type Participant = {
+  id?: number;
+  full_name: string;
+  email: string;
+  document_number?: string;
+  phone_number: string;
+  accepts_terms_of_service: boolean;
+  accepts_privacy_policy: boolean;
+  over_18: boolean;
+}
+
 
 //HERMES
 export type Role = {
