@@ -7,7 +7,7 @@ declare module 'next-auth' {
   interface Session {
     accessToken?: any;
     refreshToken?: any;
-    user_data?: any;
+    user_data?: SystemUser;
   }
 
   interface User {
@@ -16,7 +16,7 @@ declare module 'next-auth' {
       refresh_token: string;
       token_type: string;
     };
-    user_data?: HermesUser;
+    user_data?: SystemUser;
   }
 }
 
@@ -25,8 +25,9 @@ export type User = {
   name: string;
   email: string;
   password: string;
+  premises: Premise[];
   tokens: any; //TODO armar tipo de datos para el retorno de los tokens
-  user_data?: HermesUser;
+  user_data?: SystemUser;
 };
 
 export type Premise = {
@@ -52,8 +53,6 @@ export type Welcome = {
   document_number?: string;
 }
 
-
-//HERMES
 export type Role = {
   id: 1;
   name: string;
@@ -61,27 +60,41 @@ export type Role = {
   disabled: boolean;
 }
 
-export type Tenant = {
+export type Promotion = {
   id: number;
+  premise_id: number;
   name: string;
-  disabled: boolean;
-  stores: Premise[];
+  is_active: boolean;
+  is_deleted: boolean;
+  description: string;
+  participation_instructions: string;
+  ticket_extra_data: string;
+  
+  start_date: Date;
+  end_date: Date;
+  just_once: boolean;
+  
+  frequency: number;
+  maximum_participations: number;
+
+  terms_and_conditions: MediaFile;
+  welcome_background: MediaFile;
+  background: MediaFile;
 }
 
-export type MediaFiles = {
-  id: number;
-  name: string;
+export type MediaFile = {
+  id?: number;
+  name?: string;
   path: string;
   mime_type: string;
-  article_id: number;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
-export type HermesUser = {
+export type SystemUser = {
   id: number;
   username: string;
-  tenant: Tenant;
-  store: Premise;
+  email: string;
   role: Role;
+  premises: Premise[];
   disabled: boolean;
 }

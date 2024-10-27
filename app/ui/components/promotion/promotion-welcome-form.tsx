@@ -6,8 +6,13 @@ import { TextInput } from "../form-fields/input";
 import { useRouter } from 'next/navigation';
 import { WelcomeFormState, validateParticipant } from "@/app/lib/actions/welcome";
 import { SubmitButton } from "../../button";
+import { Promotion } from "@/app/lib/definitions";
 
-export function PromotionWelcomeForm() {
+interface Props{
+  promotion: Promotion | undefined;
+}
+
+export function PromotionWelcomeForm( { promotion } : Props ) {
   const router = useRouter()
 
   const initialState: WelcomeFormState = { message: null, errors: {}, formData: {} };
@@ -17,6 +22,12 @@ export function PromotionWelcomeForm() {
   useEffect(() => {
     if (state.errors) {
       setFormData(state.formData || {});
+    }
+
+    if(!promotion){
+      router.push('/promotion/unavailable')
+    } else {
+      console.log('PROMOCION', promotion)
     }
   }, [state]);
 
