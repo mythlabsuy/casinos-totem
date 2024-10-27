@@ -1,3 +1,4 @@
+import { PromotionUnavailable } from '@/app/ui/components/promotion/promotion-unavailable';
 import { lusitana } from '@/app/ui/fonts';
 import { Metadata } from 'next';
 
@@ -9,9 +10,9 @@ export default async function Page() {
   
   return (
     <main>
-      <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        No hay promocion
-      </h1>
+      <div>
+        <PromotionUnavailable />
+      </div>
     </main>
   );
 }
