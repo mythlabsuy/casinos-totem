@@ -38,9 +38,4 @@ export function PromotionWelcomeForm() {
         </CardTranslucid>
       </div>
   );
-
-  function participate(){
-    console.log("TADAAA!!!")
-    router.push(`/promotion/registration/${'1234567890'}`)
-  }
 }
