@@ -7,13 +7,13 @@ import { useRouter } from 'next/navigation';
 export function PromotionUnableToParticipate() {
   const router = useRouter();
   const [countdown, setCountdown] = useState(10);
-
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCountdown((prevCountdown) => {
         if (prevCountdown <= 1) {
           clearInterval(interval); // Clear interval when countdown reaches 0
-          router.push("/target-page"); // Redirect to the target page
+          router.push("/promotion"); // Redirect to the target page
           return 0;
         }
         return prevCountdown - 1;
