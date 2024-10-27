@@ -82,17 +82,17 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
 
     //TODO register participant
 
-    // const orderId = formData.get('order_id'); //On add this will be null
-    // const method = orderId ? 'PUT' : 'POST';
-    // const path = orderId ? `order/admin/${orderId}` : 'order/admin/';
+    const promotionId = formData.get('promotionId'); //On add this will be null
+    const method = 'POST';
+    const path = `promotion-participants/${promotionId}`;
     
-    // const response = await apiFetchServer({method: method, path: path, body: JSON.stringify(body)});
-    // const responseJson: Order = await response.json();
-    // console.log("ADD ORDER RESPONSE", responseJson);
+    const response = await apiFetchServer({method: method, path: path, body: JSON.stringify(body)});
+    const responseJson = await response.json();
+    console.log("PARTICIPATION RESPONSE", response, "RESPONSE JSON", responseJson);
 
-    // console.log("NEW/UPDATE ORDER RESPONSE: " + orderId, response);
-
-    //TODO mostrar error del response
+    if(response.ok){
+      //TODO redirigir a confirmacion, ver como pasarle los datos a imprimir
+    }
   } catch (error) {
     return {
       message: 'Database Error: Failed to Create Participant.',

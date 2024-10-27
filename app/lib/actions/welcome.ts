@@ -9,6 +9,7 @@ import { Welcome } from "../definitions";
 export type WelcomeFormState = {
   errors?: {
     document?: string[];
+    promotion_id?: string[];
   };
   message?: string | null;
   formData?: any | null;
@@ -18,12 +19,14 @@ const WelcomeFormSchema = z.object({
   document: z.string({
     required_error: 'Por favor ingrese su documento completo (CI, DNI, Pasaporte, Otro).',
   }).min(1,{message: 'Por favor ingrese su documento completo (CI, DNI, Pasaporte, Otro).'}),
+  promotion_id: z.string(),
 });
 
 export async function validateParticipant(prevState: WelcomeFormState, formData: FormData) {
   
   const validatedFields = WelcomeFormSchema.safeParse({
     document: formData.get('document'),
+    promotion_id: formData.get('promotion_id'),
   });
 
   if (!validatedFields.success) {
@@ -34,29 +37,30 @@ export async function validateParticipant(prevState: WelcomeFormState, formData:
     };
   }
   
-  const { document } = validatedFields.data;
+  const { document, promotion_id } = validatedFields.data;
+  let canParticipate = false;
 
   try {
-    const body: Welcome = {
-      document_number: document
-    }
+    const path = `promotion-participants/${promotion_id}/validate`;   
+    const query = new URLSearchParams({ document: document })
 
-    //TODO check against DB if it can participate
+    const response = await apiFetchServer({ method: 'GET', path: path, query: query });
+    const responseJson: boolean = await response.json();
 
-    // const orderId = formData.get('order_id'); //On add this will be null
-    // const method = orderId ? 'PUT' : 'POST';
-    // const path = orderId ? `order/admin/${orderId}` : 'order/admin/';
+    console.log("CAN PARTICIPATE RESPONSE JSON: ", responseJson);
+    console.log("CAN PARTICIPATE RESPONSE: ", response);
+    canParticipate = responseJson;
     
-    // const response = await apiFetchServer({method: method, path: path, body: JSON.stringify(body)});
-    // const responseJson: Order = await response.json();
-    // console.log("ADD ORDER RESPONSE", responseJson);
-
-    // console.log("NEW/UPDATE ORDER RESPONSE: " + orderId, response);
   } catch (error) {
     return {
-      message: 'Database Error: Failed to Create Participant.',
+      message: 'Error al validar si la persona puede participar.',
       formData: Object.fromEntries(formData.entries()),
     };
+  }
+  
+  //This does not work inside the try catch block
+  if(!canParticipate){
+    redirect('/promotion/unable_to_participate')
   }
 
   revalidatePath(`/promotion/registration/${document}`);
