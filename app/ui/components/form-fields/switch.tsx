@@ -1,16 +1,24 @@
 'use client'
 
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { Switch } from '@headlessui/react'
 import DynamicHeroIcon from '../../dynamic-hero-icon'
+import Link from 'next/link';
 
 interface Props {
   id: string;
-  label?: string;
+  label?: LabelProps;
   iconEnabled?: string;
   iconDisabled?: string;
   defaultEnabled?: boolean;
   onChange?: Function;
+}
+
+export interface LabelProps {
+  start?: string;
+  hrefText?: string;
+  href?: string;
+  end?: string;
 }
 
 export default function SwitchWithIcon({ id, label, iconEnabled = 'HomeIcon', iconDisabled = 'TruckIcon', defaultEnabled, onChange }: Props ) {
@@ -18,9 +26,11 @@ export default function SwitchWithIcon({ id, label, iconEnabled = 'HomeIcon', ic
 
   return (
     <>
-      <label htmlFor={`${id}_switch`} className="mb-2 ml-1 block text-2xl font-medium text-gray-700">
-        {label}
-      </label>
+      { label ? 
+        <label htmlFor={`${id}_switch`} className="mb-2 ml-1 block text-2xl font-medium text-gray-700">
+          {label.start} { label.href ? <Link href={label.href}>{label.hrefText}</Link> : null } {label.end}
+        </label> : null
+        }
       <input id={id} name={id} type='hidden' value={String(enabled)}/>
       <Switch
         id={`${id}_switch`}

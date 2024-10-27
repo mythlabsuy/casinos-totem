@@ -3,19 +3,22 @@
 import { CardTranslucid } from "../card-translucid";
 import { FormFieldsErrors, TextInput } from "../form-fields/input";
 import { useRouter } from 'next/navigation';
-import SwitchWithIcon from "../form-fields/switch";
+import SwitchWithIcon, { LabelProps } from "../form-fields/switch";
 import { useActionState, useEffect, useState } from "react";
-import { Participant } from "@/app/lib/definitions";
+import { Participant, Promotion } from "@/app/lib/definitions";
 
 import { createOrUpdateParticipant, ParticipateFormState } from '@/app/lib/actions/participate'
 import { SubmitButton } from "../../button";
+import Link from "next/link";
+import { start } from "repl";
 
 interface Props {
   doc_number: string;
+  promotion?: Promotion;
   participant?: Participant;
 }
 
-export function PromotionParticipationForm({ participant, doc_number }: Props) {
+export function PromotionParticipationForm({ participant, doc_number, promotion }: Props) {
   const initialState: ParticipateFormState = { message: null, errors: {}, formData: {} };
 
   const router = useRouter()
@@ -36,11 +39,15 @@ export function PromotionParticipationForm({ participant, doc_number }: Props) {
     }
   }, [state]);
 
+  const Over18Label: LabelProps = { start: 'Soy mayor de 18' }
+  const TosLabel: LabelProps = { start: 'Acepto los', hrefText: 'términos y condiciones', href: promotion?.terms_and_conditions.path, end: 'del sorteo.'}
+  const PrivacyPolicyLabel: LabelProps = { start: 'Acepto las', hrefText: 'políticas de privacidad', href: '', end: 'del organizador.'}
+
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <CardTranslucid title='Participá por una promocion de un auto 0KM'> 
+      <CardTranslucid title={promotion ? promotion.name : ''}> 
         <div className="text-2xl text-gray-700">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, illum, earum consequuntur vero neque optio mollitia aliquid veritatis, magnam tempore vel nesciunt. Molestiae omnis nostrum quaerat temporibus expedita tempore maxime!
+          {promotion ? promotion.description : ''}
         </div>
         <form action={formAction}>
           <div className="pt-4">
@@ -77,19 +84,20 @@ export function PromotionParticipationForm({ participant, doc_number }: Props) {
             label="E-Mail"/>
           </div>
           <div className="mt-4">
-            <SwitchWithIcon id={'is_over_18'} label='Soy mayor de 18' 
+            <SwitchWithIcon id={'is_over_18'} label={Over18Label}
             iconDisabled="XMarkIcon" iconEnabled="CheckIcon" 
             defaultEnabled={ formData.is_over_18 || participant?.over_18 || false } 
             onChange={() => setIsOver18(!isOver18)}/>
           </div>
           <div className="mt-4">
-            <SwitchWithIcon id={'accepts_tos'} label='Acepto los términos y condiciones del sorteo.' 
+            <SwitchWithIcon id={'accepts_tos'} 
+            label={ TosLabel }
             iconDisabled="XMarkIcon" iconEnabled="CheckIcon" 
             defaultEnabled={ formData.accepts_tos || participant?.accepts_terms_of_service || false } 
             onChange={() => setAcceptsTos(!acceptsTos)}/>
           </div>
           <div className="mt-4">
-            <SwitchWithIcon id={'accepts_privacy_policy'} label='Acepto las políticas de privacidad del organizador.' 
+            <SwitchWithIcon id={'accepts_privacy_policy'} label={PrivacyPolicyLabel} 
             iconDisabled="XMarkIcon" iconEnabled="CheckIcon" 
             defaultEnabled={ formData.accepts_privacy_policy || participant?.accepts_privacy_policy || false } 
             onChange={() => setAcceptsPrivacyPolicy(!acceptsPrivacyPolicy)}/>
