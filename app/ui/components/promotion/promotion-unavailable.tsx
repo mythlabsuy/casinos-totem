@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { CardTranslucid } from "../card-translucid";
-import { useRouter } from 'next/navigation';
 import { signOut } from "next-auth/react";
 
 export function PromotionUnavailable() {

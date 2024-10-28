@@ -9,8 +9,6 @@ import { Participant, Promotion } from "@/app/lib/definitions";
 
 import { createOrUpdateParticipant, ParticipateFormState } from '@/app/lib/actions/participate'
 import { SubmitButton } from "../../button";
-import Link from "next/link";
-import { start } from "repl";
 
 interface Props {
   doc_number: string;

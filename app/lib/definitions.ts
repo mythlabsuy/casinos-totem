@@ -60,6 +60,11 @@ export type Role = {
   disabled: boolean;
 }
 
+export type ApiResponse = {
+  status: number;
+  data: any; 
+}
+
 export type Promotion = {
   id: number;
   premise_id: number;
