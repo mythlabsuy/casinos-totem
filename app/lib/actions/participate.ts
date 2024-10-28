@@ -69,6 +69,9 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
   
   const { document, full_name, phone_area_code, phone_number, email, is_over_18, accepts_tos, accepts_privacy_policy } = validatedFields.data;
 
+  let registrationOk = false;
+  let registrationStatus = 200;
+
   try {
     const body: Participant = {
       full_name: full_name,
@@ -82,7 +85,7 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
 
     //TODO register participant
 
-    const promotionId = formData.get('promotionId'); //On add this will be null
+    const promotionId = formData.get('promotion_id'); //On add this will be null
     const method = 'POST';
     const path = `promotion-participants/${promotionId}`;
     
@@ -90,17 +93,23 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
     const responseJson = await response.json();
     console.log("PARTICIPATION RESPONSE", response, "RESPONSE JSON", responseJson);
 
-    if(response.ok){
-      redirect('/promotion/confirmation');
-      //TODO redirigir a confirmacion, ver como pasarle los datos a imprimir
-    }
+    registrationOk = response.ok;
+    registrationStatus = response.status;
+
   } catch (error) {
     return {
       message: 'Database Error: Failed to Create Participant.',
       formData: Object.fromEntries(formData.entries()),
     };
   }
-
-  revalidatePath('/promotion/confirmation');
-  redirect('/promotion/confirmation');
+  
+  if(registrationStatus === 200){
+    redirect('/promotion/confirmation');
+    //TODO redirigir a confirmacion, ver como pasarle los datos a imprimir
+  } else if(registrationStatus === 400) {
+    redirect('/promotion/unable_to_participate');
+  } else {
+    //TODO ver que otros posibles errores hay y como mostrar al usuario
+    redirect('/promotion/unable_to_participate/')
+  }
 }

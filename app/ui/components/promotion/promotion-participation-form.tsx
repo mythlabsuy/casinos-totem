@@ -48,6 +48,7 @@ export function PromotionParticipationForm({ participant, doc_number, promotion 
           {promotion ? promotion.description : ''}
         </div>
         <form action={formAction}>
+          <input id="promotion_id" name="promotion_id" type="hidden" value={promotion?.id}/>
           <div className="pt-4">
             <TextInput id='document' name="document" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="IdentificationIcon"
             defaultValue={formData.document || doc_number || ''}
