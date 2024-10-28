@@ -71,13 +71,13 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
 
   try {
     const body: Participant = {
-      document_number: document,
       full_name: full_name,
-      phone_number: `${phone_area_code} ${phone_number}`,
       email: email,
-      over_18: is_over_18,
+      document_number: document,
+      phone_number: `${phone_area_code} ${phone_number}`,
+      accepts_terms_of_service: accepts_tos,
       accepts_privacy_policy: accepts_privacy_policy,
-      accepts_terms_of_service: accepts_tos
+      over_18: is_over_18,
     }
 
     //TODO register participant
@@ -91,6 +91,7 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
     console.log("PARTICIPATION RESPONSE", response, "RESPONSE JSON", responseJson);
 
     if(response.ok){
+      redirect('/promotion/confirmation');
       //TODO redirigir a confirmacion, ver como pasarle los datos a imprimir
     }
   } catch (error) {

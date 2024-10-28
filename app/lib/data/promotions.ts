@@ -19,7 +19,6 @@ export async function fetchActivePromotion(
     console.log("PROMOTION RESPONSE", response);
     
     return resp
-    // return response.json();
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Error al obtener la promocion activa');
