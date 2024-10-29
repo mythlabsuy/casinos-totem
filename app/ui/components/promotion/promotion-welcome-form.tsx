@@ -37,7 +37,7 @@ export function PromotionWelcomeForm( { promotion } : Props ) {
           <form action={formAction}>
             <input id="promotion_id" name="promotion_id" type="hidden" value={promotion?.id}/>
             <TextInput id={'document'} className="bg-transparent border-black mt-8 mb-4 px-16" 
-              errors={state.errors ? state.errors.document : undefined} 
+              errors={state && state.errors ? state.errors.document : undefined} 
               defaultValue={formData.document || ''}
               icon="MagnifyingGlassIcon"/>
 
