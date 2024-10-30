@@ -5,6 +5,7 @@ import { Switch } from '@headlessui/react'
 import DynamicHeroIcon from '../../dynamic-hero-icon'
 import Modal, { ModalType } from "../modal";
 import PdfViewer from '../pdf-viewer';
+import { classNames } from '@react-pdf-viewer/core';
 
 interface Props {
   id: string;
@@ -45,7 +46,7 @@ export default function SwitchWithIcon({ id, label, iconEnabled = 'HomeIcon', ic
         </Modal> : null }
 
       { label ? 
-        <label htmlFor={`${id}_switch`} className="mb-2 ml-1 block text-2xl font-medium text-gray-700">
+        <label className="mb-2 ml-1 block text-2xl font-medium text-gray-700">
           {label.start} { label.href ? 
           <span onClick={() => setModalOpen(true)} className='underline cursor-pointer text-blue-500'>{label.hrefText}</span> : null } {label.end}
         </label> : null

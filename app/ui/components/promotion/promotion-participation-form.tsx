@@ -4,7 +4,7 @@ import { CardTranslucid } from "../card-translucid";
 import { FormFieldsErrors, TextInput } from "../form-fields/input";
 import SwitchWithIcon, { LabelProps } from "../form-fields/switch";
 import { useActionState, useEffect, useState } from "react";
-import { Participant, Promotion } from "@/app/lib/definitions";
+import { Participant, Premise, Promotion } from "@/app/lib/definitions";
 
 import { createOrUpdateParticipant, ParticipateFormState } from '@/app/lib/actions/participate'
 import { SubmitButton } from "../../button";
@@ -13,9 +13,10 @@ interface Props {
   doc_number: string;
   promotion?: Promotion;
   participant?: Participant;
+  premise?: Premise
 }
 
-export function PromotionParticipationForm({ participant, doc_number, promotion }: Props) {
+export function PromotionParticipationForm({ participant, doc_number, promotion, premise }: Props) {
   const initialState: ParticipateFormState = { message: null, errors: {}, formData: {} };
 
   const [state, formAction] = useActionState(createOrUpdateParticipant, initialState);
@@ -37,7 +38,7 @@ export function PromotionParticipationForm({ participant, doc_number, promotion 
 
   const Over18Label: LabelProps = { start: 'Soy mayor de 18' }
   const TosLabel: LabelProps = { start: 'Acepto los', hrefText: 'términos y condiciones', href: promotion?.terms_and_conditions.path, end: 'del sorteo.', modalTitle: 'Términos y condiciones'}
-  const PrivacyPolicyLabel: LabelProps = { start: 'Acepto las', hrefText: 'políticas de privacidad', href: '', end: 'del organizador.', modalTitle: 'Políticas de privacidad'}
+  const PrivacyPolicyLabel: LabelProps = { start: 'Acepto las', hrefText: 'políticas de privacidad', href: premise?.privacy_policy.path, end: 'del organizador.', modalTitle: 'Políticas de privacidad'}
   //TODO traer link de las politicas de privacidad desde los datos del local
 
   return (

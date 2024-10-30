@@ -34,7 +34,7 @@ export type Premise = {
   id: number;
   name: string;
   logo: string;
-  privacy_policy: string;
+  privacy_policy: MediaFile;
   disabled: boolean;
 }
 

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
  
 export default async function Page({ params }: { params: { id: string } }) {
   
-  let premise: Premise;
+  let premise: Premise | undefined = undefined;
   let promotion: Promotion | undefined = undefined;
   let apiStatus: number = 200;
   const session = await auth();
@@ -38,7 +38,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     <main>
       <LogOut status={apiStatus}/>
       <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://imageio.forbes.com/specials-images/imageserve/656df61cc3a44648c235dde3/Las-Vegas--Nevada--USA-at-the-Welcome-Sign/960x0.jpg?format=jpg&width=960')" }} >
-        <PromotionParticipationForm doc_number={params.id} promotion={promotion}/>
+        <PromotionParticipationForm doc_number={params.id} promotion={promotion} premise={premise}/>
       </div>
     </main>
   );
