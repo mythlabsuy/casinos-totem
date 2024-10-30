@@ -22,49 +22,34 @@ export interface LabelProps {
   hrefText?: string;
   href?: string;
   end?: string;
+  modalTitle?: string;
 }
 
 export default function SwitchWithIcon({ id, label, iconEnabled = 'HomeIcon', iconDisabled = 'TruckIcon', defaultEnabled, onChange }: Props ) {
   const [enabled, setEnabled] = useState(defaultEnabled || false)
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [modalText, setModalText] = useState<string>('');
-  //TODO ver como abrir el link en un modal
-
-  let modalTitle = `${label?.start} `
-  if(label?.hrefText){
-    modalTitle += label.hrefText + ' ';
-  }
-  if(label?.end){
-    modalTitle += label.end + ' ';
-
-  }
 
   return (
     <>
+    {label?.modalTitle ? 
       <Modal open={modalOpen} setOpen={setModalOpen} 
         onConfirm={() => {setModalOpen(false)}}
         confirmText='Cerrar'
         type={ModalType.Info}
         hideCancelBtn = {true}
-        icon = 'ExclamationTriangleIcon'
-        title={modalTitle}
-        text={modalText} >
-          {/* <div className="bg-[#323639] h-14 w-32 absolute right-10"></div> */}
+        icon = 'InformationCircleIcon'
+        title={label.modalTitle}
+        text="" >
           {label && label.href ? 
             <PdfViewer height={900} path={ label?.href }/> : null
-            // <iframe
-            //   src={ label?.href }
-            //   className="w-full h-[800px] touch-auto"
-            //   title="PDF Viewer"
-            // /> : null
           }
-        </Modal>
+        </Modal> : null }
 
-      <Button onClickCallback={ () => setModalOpen(true) }>open modal</Button>
       { label ? 
         <label htmlFor={`${id}_switch`} className="mb-2 ml-1 block text-2xl font-medium text-gray-700">
-          {label.start} { label.href ? <Link href={label.href}>{label.hrefText}</Link> : null } {label.end}
+          {label.start} { label.href ? 
+          <span onClick={() => setModalOpen(true)} className='underline cursor-pointer text-blue-500'>{label.hrefText}</span> : null } {label.end}
         </label> : null
         }
       <input id={id} name={id} type='hidden' value={String(enabled)}/>

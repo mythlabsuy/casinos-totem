@@ -129,18 +129,18 @@ const Modal = ({open, setOpen, onConfirm, onCancel, title, text, children, icon,
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
-                      {(() => {
-                        if(icon){
-                          return (
-                            <div className={"mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10 " + iconBgColor}>
-                              <DynamicHeroIcon icon={icon} className={'h-6 w-6 ' + iconColor}/>
-                            </div>
-                          )
-                        }
-                    })()}
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
-                      <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                        {title}
+                      <Dialog.Title as="h3" className="text-2xl font-semibold leading-6 text-gray-900 flex flex-row items-center">
+                        {(() => {
+                          if(icon){
+                            return (
+                              <div className={"mx-auto flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-14 sm:w-14 " + iconBgColor}>
+                                <DynamicHeroIcon icon={icon} className={'h-10 w-10 ' + iconColor}/>
+                              </div>
+                            )
+                          }
+                        })()}
+                        <span className='ml-6'>{title}</span>
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
@@ -154,7 +154,9 @@ const Modal = ({open, setOpen, onConfirm, onCancel, title, text, children, icon,
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className={`inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto ${buttonColor} ${buttonHoverColor}`}
+                    className="flex h-10 items-center justify-items-center rounded-2xl bg-primary-600 py-8 text-2xl 
+                    font-medium text-white transition-colors hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 
+                    focus-visible:outline-offset-2 focus-visible:outline-primary-600 uppercase w-auto px-8 text-center"
                     onClick={() => {
                       onConfirm();
                       setOpen(false);

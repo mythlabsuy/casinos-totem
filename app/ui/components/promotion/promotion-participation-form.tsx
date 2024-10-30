@@ -38,8 +38,8 @@ export function PromotionParticipationForm({ participant, doc_number, promotion 
   }, [state]);
 
   const Over18Label: LabelProps = { start: 'Soy mayor de 18' }
-  const TosLabel: LabelProps = { start: 'Acepto los', hrefText: 'términos y condiciones', href: promotion?.terms_and_conditions.path, end: 'del sorteo.'}
-  const PrivacyPolicyLabel: LabelProps = { start: 'Acepto las', hrefText: 'políticas de privacidad', href: '', end: 'del organizador.'}
+  const TosLabel: LabelProps = { start: 'Acepto los', hrefText: 'términos y condiciones', href: promotion?.terms_and_conditions.path, end: 'del sorteo.', modalTitle: 'Términos y condiciones'}
+  const PrivacyPolicyLabel: LabelProps = { start: 'Acepto las', hrefText: 'políticas de privacidad', href: '', end: 'del organizador.', modalTitle: 'Políticas de privacidad'}
 
   return (
     <div className="flex justify-center items-center min-h-screen">
