@@ -49,6 +49,23 @@ export function TextInput({ id, name, placeholder, className, defaultValue = '',
   );
 }
 
+export function EmailInput({ id, name, placeholder, className, defaultValue = '', label = '', icon, errors, disabled = false, ...rest }: TextInputProps ) {
+  return (
+    <Input id={id} 
+    name={name} 
+    placeholder={placeholder} 
+    className={className} 
+    defaultValue={defaultValue} 
+    label={label} 
+    icon= {icon} 
+    errors={errors} 
+    type='email' 
+    disabled = {disabled}
+    {...rest}
+    />
+  );
+}
+
 export function NumberInput({ id, name, placeholder, className, defaultValue = 0, label = '', icon, errors, step = 1, min, max, disabled = false, ...rest }: NumberInputProps ) {
   return (
     <Input id={id} 

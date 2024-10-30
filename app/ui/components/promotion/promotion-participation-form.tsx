@@ -1,7 +1,7 @@
 'use client'
 
 import { CardTranslucid } from "../card-translucid";
-import { FormFieldsErrors, TextInput } from "../form-fields/input";
+import { EmailInput, FormFieldsErrors, NumberInput, TextInput } from "../form-fields/input";
 import SwitchWithIcon, { LabelProps } from "../form-fields/switch";
 import { useActionState, useEffect, useState } from "react";
 import { Participant, Premise, Promotion } from "@/app/lib/definitions";
@@ -39,8 +39,7 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
   const Over18Label: LabelProps = { start: 'Soy mayor de 18' }
   const TosLabel: LabelProps = { start: 'Acepto los', hrefText: 'términos y condiciones', href: promotion?.terms_and_conditions.path, end: 'del sorteo.', modalTitle: 'Términos y condiciones'}
   const PrivacyPolicyLabel: LabelProps = { start: 'Acepto las', hrefText: 'políticas de privacidad', href: premise?.privacy_policy.path, end: 'del organizador.', modalTitle: 'Políticas de privacidad'}
-  //TODO traer link de las politicas de privacidad desde los datos del local
-
+  
   return (
     <div className="flex justify-center items-center min-h-screen">
       <CardTranslucid title={promotion ? promotion.name : ''}> 
@@ -62,14 +61,14 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
           </div>
           <div className="flex w-full pt-4">
             <div className="w-1/4 pr-1">
-              <TextInput id={'phone_area_code'} name="phone_area_code" className="text-2xl rounded-2xl bg-transparent border-black" icon="PlusIcon" 
+              <NumberInput id={'phone_area_code'} name="phone_area_code" className="text-2xl rounded-2xl bg-transparent border-black" icon="PlusIcon" 
               defaultValue={formData.phone_area_code || participant?.phone_number.split(' ')[0] || ''}
               label="Prefijo"/>
             </div>
             <div className="w-3/4">
-              <TextInput id={'phone_number'} name="phone_number" className="text-2xl rounded-2xl bg-transparent border-black" icon="DevicePhoneMobileIcon" 
+              <NumberInput id={'phone_number'} name="phone_number" className="text-2xl rounded-2xl bg-transparent border-black" icon="DevicePhoneMobileIcon" 
               defaultValue={formData.phone_number || participant?.phone_number.split(' ')[1] || ''}
-              label="Teléfono"/>
+              label="Teléfono" step={1}/>
             </div>
           </div>
           {state.errors ? <div id={`phone-error`} aria-live="polite" aria-atomic="true">
@@ -77,7 +76,7 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
             { state.errors.phone_number ? <FormFieldsErrors errors={ state.errors.phone_number }/> : null}
           </div> : null}
           <div className="pt-4">
-            <TextInput id={'email'} name="email" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="AtSymbolIcon"
+            <EmailInput id={'email'} name="email" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="AtSymbolIcon"
             defaultValue={formData.email || participant?.email || ''}
             errors={state.errors ? state.errors.email : undefined} 
             label="E-Mail"/>
