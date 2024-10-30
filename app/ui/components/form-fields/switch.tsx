@@ -1,11 +1,9 @@
 'use client'
 
-import { ReactNode, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Switch } from '@headlessui/react'
 import DynamicHeroIcon from '../../dynamic-hero-icon'
-import Link from 'next/link';
 import Modal, { ModalType } from "../modal";
-import { Button } from '../button';
 import PdfViewer from '../pdf-viewer';
 
 interface Props {

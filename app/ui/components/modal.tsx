@@ -127,22 +127,24 @@ const Modal = ({open, setOpen, onConfirm, onCancel, title, text, children, icon,
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
-                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <div className="mt-3 text-center px-4 py-2 sm:mt-0 sm:text-left w-full border-b">
+                  <Dialog.Title as="h3" className="text-2xl font-semibold leading-6 text-gray-900 flex flex-row items-center">
+                    {(() => {
+                      if(icon){
+                        return (
+                          <div className={"mx-auto flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-14 sm:w-14 " + iconBgColor}>
+                            <DynamicHeroIcon icon={icon} className={'h-10 w-10 ' + iconColor}/>
+                          </div>
+                        )
+                      }
+                    })()}
+                    <span className='ml-6'>{title}</span>
+                  </Dialog.Title>
+                </div>
+                <div className="bg-white px-4 sm:px-6">
                   <div className="sm:flex sm:items-start">
-                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
-                      <Dialog.Title as="h3" className="text-2xl font-semibold leading-6 text-gray-900 flex flex-row items-center">
-                        {(() => {
-                          if(icon){
-                            return (
-                              <div className={"mx-auto flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-14 sm:w-14 " + iconBgColor}>
-                                <DynamicHeroIcon icon={icon} className={'h-10 w-10 ' + iconColor}/>
-                              </div>
-                            )
-                          }
-                        })()}
-                        <span className='ml-6'>{title}</span>
-                      </Dialog.Title>
-                      <div className="mt-2">
+                    <div className="mt-0 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
+                      <div>
                         <p className="text-sm text-gray-500">
                           { text }
                         </p>
@@ -151,7 +153,7 @@ const Modal = ({open, setOpen, onConfirm, onCancel, title, text, children, icon,
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <div className="bg-white px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 border-t">
                   <button
                     type="button"
                     className="flex h-10 items-center justify-items-center rounded-2xl bg-primary-600 py-8 text-2xl 
