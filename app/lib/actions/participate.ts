@@ -70,6 +70,7 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
 
   let registrationOk = false;
   let registrationStatus = 200;
+  let participation_id = '0';
 
   try {
     const body: Participant = {
@@ -90,6 +91,7 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
     
     const response = await apiFetchServer({method: method, path: path, body: JSON.stringify(body)});
     const responseJson = await response.json();
+    participation_id = responseJson;
     console.log("PARTICIPATION RESPONSE", response, "RESPONSE JSON", responseJson);
 
     registrationOk = response.ok;
@@ -103,7 +105,7 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
   }
   
   if(registrationStatus === 200){
-    redirect('/promotion/confirmation');
+    redirect(`/promotion/confirmation/${participation_id}`);
     //TODO redirigir a confirmacion, ver como pasarle los datos a imprimir
   } else if(registrationStatus === 400) {
     redirect('/promotion/unable_to_participate');
