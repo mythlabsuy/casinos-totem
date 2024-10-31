@@ -5,7 +5,6 @@ import { Switch } from '@headlessui/react'
 import DynamicHeroIcon from '../../dynamic-hero-icon'
 import Modal, { ModalType } from "../modal";
 import PdfViewer from '../pdf-viewer';
-import { classNames } from '@react-pdf-viewer/core';
 
 interface Props {
   id: string;

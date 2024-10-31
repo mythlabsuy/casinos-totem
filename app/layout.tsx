@@ -1,6 +1,7 @@
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
 import { Metadata } from 'next';
+import { SessionProvider } from 'next-auth/react';
  
 export const metadata: Metadata = {
   //TODO update metadata
@@ -19,7 +20,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full bg-white">
-      <body className={`${inter.className} antialiased h-full`}>{children}</body>
+      <body className={`${inter.className} antialiased h-full`}>
+        <SessionProvider>
+          {children}
+        </SessionProvider>
+      </body>
     </html>
   );
 }

@@ -2,7 +2,6 @@
 
 import { z } from "zod";
 import { apiFetchServer } from "../api";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Participant } from "../definitions";
 
