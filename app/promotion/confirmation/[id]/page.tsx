@@ -2,7 +2,7 @@ import { PromotionConfirmation } from '@/app/ui/components/promotion/promotion-c
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Confirmacion',
+  title: 'Confirmación',
 };
  
 export default async function Page({ params }: { params: { id: string } }) {

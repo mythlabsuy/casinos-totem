@@ -2,7 +2,7 @@
 
 import { printPDF } from "@/app/lib/print";
 import { CardTranslucid } from "../card-translucid";
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { fetchParticipationPrint } from "@/app/lib/data/participate";
 import { useSession } from "next-auth/react";
@@ -16,13 +16,18 @@ export function PromotionConfirmation({ id }: Props) {
   const [loading, setLoading] = useState(true)
   const { data: session } = useSession();
 
+  const searchParams = useSearchParams();
+  const print = searchParams.get('print');
+  const shouldPrint = print ? print === 'true' : true;
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if(session){
+        if(session && shouldPrint){
           const response = await fetchParticipationPrint(parseInt(id), session);
           const blob = await response.blob();
           await printPDF(blob)
+          router.push('/promotion/confirmation/5?print=false');
         }
       } catch (error) {
         console.error('Error fetching data:', error);
