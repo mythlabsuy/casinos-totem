@@ -22,9 +22,9 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
   const [state, formAction] = useActionState(createOrUpdateParticipant, initialState);
   const [formData, setFormData] = useState<any>({});
 
-  const [isOver18, setIsOver18] = useState<boolean>(state.formData.is_over_18 || participant?.over_18 || false);
-  const [acceptsTos, setAcceptsTos] = useState<boolean>(state.formData.accepts_tos || participant?.accepts_terms_of_service || false);
-  const [acceptsPrivacyPolicy, setAcceptsPrivacyPolicy] = useState<boolean>(state.formData.accepts_privacy_policy || participant?.accepts_privacy_policy || false);
+  const [isOver18, setIsOver18] = useState<boolean>(state.formData.is_over_18 || participant?.over_18 || true);
+  const [acceptsTos, setAcceptsTos] = useState<boolean>(state.formData.accepts_tos || participant?.accepts_terms_of_service || true);
+  const [acceptsPrivacyPolicy, setAcceptsPrivacyPolicy] = useState<boolean>(state.formData.accepts_privacy_policy || participant?.accepts_privacy_policy || true);
 
   useEffect(() => {
     if (state.errors) {
@@ -84,20 +84,20 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
           <div className="mt-4">
             <SwitchWithIcon id={'is_over_18'} label={Over18Label}
             iconDisabled="XMarkIcon" iconEnabled="CheckIcon" 
-            defaultEnabled={ formData.is_over_18 || participant?.over_18 || false } 
+            defaultEnabled={ formData.is_over_18 || participant?.over_18 || true } 
             onChange={() => setIsOver18(!isOver18)}/>
           </div>
           <div className="mt-4">
             <SwitchWithIcon id={'accepts_tos'} 
             label={ TosLabel }
             iconDisabled="XMarkIcon" iconEnabled="CheckIcon" 
-            defaultEnabled={ formData.accepts_tos || participant?.accepts_terms_of_service || false } 
+            defaultEnabled={ formData.accepts_tos || participant?.accepts_terms_of_service || true } 
             onChange={() => setAcceptsTos(!acceptsTos)}/>
           </div>
           <div className="mt-4">
             <SwitchWithIcon id={'accepts_privacy_policy'} label={PrivacyPolicyLabel} 
             iconDisabled="XMarkIcon" iconEnabled="CheckIcon" 
-            defaultEnabled={ formData.accepts_privacy_policy || participant?.accepts_privacy_policy || false } 
+            defaultEnabled={ formData.accepts_privacy_policy || participant?.accepts_privacy_policy || true } 
             onChange={() => setAcceptsPrivacyPolicy(!acceptsPrivacyPolicy)}/>
           </div>
           {state.errors ? <div id={`toggle-error`} aria-live="polite" aria-atomic="true">
