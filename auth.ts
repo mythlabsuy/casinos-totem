@@ -23,9 +23,10 @@ async function getUser(username: string, password: string): Promise<User | undef
     }
 
     console.log('TOKENS RESPONSE', responseTokens, "TOKENS", tokens);
-
+    
     const responseUser = await fetchUser(tokens);
-
+    console.log('SI ACA NO LLEGA SE ROMPIO EN EL FETCH USER');
+    
     const user: User = {
       email: decodedToken.email,
       password: '',
@@ -49,13 +50,16 @@ export async function fetchUser(tokens: any){
     'Content-type': 'application/json',
     'Authorization': tokens.token_type + " " + tokens.access_token
   });
-    
+  console.log("FETCH USER AUTH: ", tokens.token_type + " " + tokens.access_token);
+  console.log("FETCH USER: ", getFullPath('user/users/me'));
+  
   const response = await fetch(getFullPath('user/users/me'), 
     {
       method: "GET",
       headers: headers
     }
   );
+  console.log("FETCH USER RESPONSE: ", response);
 
   return response
 }
