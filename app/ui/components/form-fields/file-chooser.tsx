@@ -1,7 +1,7 @@
 'use client';
 
 import { MediaFile } from "@/app/lib/definitions";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal, { ModalType } from "../modal";
 import GridGallery from "../grid-gallery";
 import FileChooserLabel from "./file-chooser-label";

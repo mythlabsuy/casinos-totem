@@ -5,7 +5,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
   let userName: string = '';
   
   if(session && session.user_data){
-    userName = session.user_data.full_name ? session.user_data.full_name : session.user_data.username;
+    userName = session.user_data.username ? session.user_data.username : session.user_data.username;
   }
 
   return (

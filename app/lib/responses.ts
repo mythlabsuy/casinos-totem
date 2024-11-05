@@ -1,8 +1,4 @@
-import { Category, Premise, Role } from "./definitions";
-
-export type CategoriesResponse = {
-  category: Category[];
-}
+import { Premise, Role } from "./definitions";
 
 export type PremisesResponse = {
   premises: Premise[];
