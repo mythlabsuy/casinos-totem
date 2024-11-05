@@ -51,9 +51,9 @@ export async function fetchUser(tokens: any){
     'Authorization': tokens.token_type + " " + tokens.access_token
   });
   console.log("FETCH USER AUTH: ", tokens.token_type + " " + tokens.access_token);
-  console.log("FETCH USER: ", getFullPath('user/users/me'));
+  console.log("FETCH USER: ", getFullPath('user/users/me/'));
   
-  const response = await fetch(getFullPath('user/users/me'), 
+  const response = await fetch(getFullPath('user/users/me/'), 
     {
       method: "GET",
       headers: headers
