@@ -36,7 +36,7 @@ export default async function Page() {
   return (
     <main>
       <LogOut status={apiStatus}/>
-      <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://imageio.forbes.com/specials-images/imageserve/656df61cc3a44648c235dde3/Las-Vegas--Nevada--USA-at-the-Welcome-Sign/960x0.jpg?format=jpg&width=960')" }} >
+      <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('${promotion?.welcome_background.path}')` }} >
         <PromotionWelcomeForm promotion={promotion}/>
       </div>
     </main>
