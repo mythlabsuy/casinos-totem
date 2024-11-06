@@ -35,7 +35,8 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
       // setIsOver18(state.formData.accepts_privacy_policy || participant?.accepts_privacy_policy || false);
     }
   }, [state]);
-
+  console.log("TOS: ", promotion?.terms_and_conditions);
+  console.log("PRIVACY POLICY: ", premise?.privacy_policy);
   const Over18Label: LabelProps = { start: 'Soy mayor de 18' }
   const TosLabel: LabelProps = { start: 'Acepto los', hrefText: 'términos y condiciones', href: promotion?.terms_and_conditions.path, end: 'del sorteo.', modalTitle: 'Términos y condiciones'}
   const PrivacyPolicyLabel: LabelProps = { start: 'Acepto las', hrefText: 'políticas de privacidad', href: premise?.privacy_policy.path, end: 'del organizador.', modalTitle: 'Políticas de privacidad'}
