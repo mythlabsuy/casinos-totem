@@ -14,20 +14,15 @@ export default async function Page({ params }: { params: { id: string } }) {
   let premise: Premise | undefined = undefined;
   let promotion: Promotion | undefined = undefined;
   let apiStatus: number = 200;
-  console.log("LLEGUE 1");
   const session = await auth();
-  console.log("LLEGUE 2, SESSION: ", session);
   
   // If user is not logged in session will be null
   // If the user has many premises, only the first one will be used.
   // Totem users should have only 1 premise
   if(session && session.user_data){
-    console.log("LLEGUE 3, ENTRE AL IF");
     premise = session.user_data?.premises[0];
-    console.log("LLEGUE 4, PREMISE: ", premise);
     
     let promotionResp: ApiResponse = await fetchActivePromotion(premise.id);
-    console.log("LLEGUE 5, PROMOTION RESP: ", promotionResp);
 
     apiStatus = promotionResp.status;
     if(promotionResp.status !== 401){

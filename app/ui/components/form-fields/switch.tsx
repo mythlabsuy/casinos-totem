@@ -27,7 +27,6 @@ export default function SwitchWithIcon({ id, label, iconEnabled = 'HomeIcon', ic
   const [enabled, setEnabled] = useState(defaultEnabled || false)
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  console.log("SWITCH LABEL: ", label);
   return (
     <>
     {label?.modalTitle ? 

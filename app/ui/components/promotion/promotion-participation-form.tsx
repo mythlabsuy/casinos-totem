@@ -27,16 +27,10 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
   const [acceptsPrivacyPolicy, setAcceptsPrivacyPolicy] = useState<boolean>(state.formData.accepts_privacy_policy || participant?.accepts_privacy_policy || true);
 
   useEffect(() => {
-    if (state.errors) {
+    if (state && state.errors) {
       setFormData(state.formData || {});
-      //TODO Si ya lo aceptaron lo tenemos que cargar?, o lo tienen que aceptar todas las veces?
-      // setIsOver18(state.formData.is_over_18 || participant?.is_over_18 || false);
-      // setIsOver18(state.formData.accepts_tos || participant?.accepts_tos || false);
-      // setIsOver18(state.formData.accepts_privacy_policy || participant?.accepts_privacy_policy || false);
     }
   }, [state]);
-  console.log("TOS: ", promotion?.terms_and_conditions);
-  console.log("PRIVACY POLICY: ", premise?.privacy_policy);
   const Over18Label: LabelProps = { start: 'Soy mayor de 18' }
   const TosLabel: LabelProps = { start: 'Acepto los', hrefText: 'términos y condiciones', href: promotion?.terms_and_conditions.path, end: 'del sorteo.', modalTitle: 'Términos y condiciones'}
   const PrivacyPolicyLabel: LabelProps = { start: 'Acepto las', hrefText: 'políticas de privacidad', href: premise?.privacy_policy.path, end: 'del organizador.', modalTitle: 'Políticas de privacidad'}
