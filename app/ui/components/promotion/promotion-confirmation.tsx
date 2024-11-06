@@ -2,18 +2,19 @@
 
 import { printPDF } from "@/app/lib/print";
 import { CardTranslucid } from "../card-translucid";
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 import { fetchParticipationPrint } from "@/app/lib/data/participate";
 import { useSession } from "next-auth/react";
+import { Premise, Promotion } from "@/app/lib/definitions";
 
 interface Props {
-  id: string
+  id: string;
+  promotion?: Promotion;
 }
 
-export function PromotionConfirmation({ id }: Props) {
+export function PromotionConfirmation({ id, promotion }: Props) {
   const router = useRouter()
-  const [loading, setLoading] = useState(true)
   const { data: session } = useSession();
 
   const searchParams = useSearchParams();
@@ -27,12 +28,10 @@ export function PromotionConfirmation({ id }: Props) {
           const response = await fetchParticipationPrint(parseInt(id), session);
           const blob = await response.blob();
           await printPDF(blob)
-          router.push('/promotion/confirmation/5?print=false');
+          router.push(`/promotion/confirmation/${id}?print=false`);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -45,13 +44,11 @@ export function PromotionConfirmation({ id }: Props) {
         btnClassName={`flex h-10 items-center justify-items-center rounded-2xl bg-primary-600 py-8 text-2xl font-medium text-white 
         transition-colors hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 
         focus-visible:outline-offset-2 focus-visible:outline-primary-600 uppercase w-96`}>
-          { loading ? 
-            <p className="text-xl">Imprimiendo ...</p> : 
-            <p className="text-xl">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, rem? Quis veniam ducimus qui eveniet nihil assumenda nemo delectus 
-              consequatur, natus accusantium reiciendis, enim placeat quas nobis explicabo eius sapiente.
-            </p>
-          }
+        <p className="text-xl">
+          Estamos imprimiendo tu ticket.
+          <br/>
+          {promotion ? promotion.participation_instructions: ''}
+        </p>
       </CardTranslucid>
     </div>
   );
