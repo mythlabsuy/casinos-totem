@@ -27,7 +27,9 @@ const ParticipateFormSchema = z.object({
   }).min(1,{message: 'Por favor ingrese su nombre completo.'}),
   phone_area_code: z.coerce.number({
     invalid_type_error: 'Por favor ingrese un prefijo de país.',
-  }).min(1, {message: 'Por favor ingrese un prefijo de país.'}),
+  })
+  .min(1, {message: 'Por favor ingrese un número mayor a 1.'})
+  .max(999, {message: 'Por favor ingrese un número menor a 999.'}),
   phone_number: z.coerce.number({
     invalid_type_error: 'Por favor ingrese un número de teléfono.',
   }).min(1, {message: 'Por favor ingrese un número de teléfono.'}),
