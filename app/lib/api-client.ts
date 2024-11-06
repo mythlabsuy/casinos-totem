@@ -14,7 +14,7 @@ interface Props {
   session?: Session | null
 }
 
-const API_HOST = 'http://44.198.77.54:441/'
+const API_HOST = 'http://44.198.77.54:441/' //FIXME cambiar esto
 
 export async function apiFetchJson({method = 'GET', path = '/', query, body, session, isForm = false, isFileUpload = false, withAuth = true}: Props){
   const response = await apiFetchResponse({method, path, query, body, session, isForm, isFileUpload, withAuth})

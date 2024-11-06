@@ -57,6 +57,6 @@ export function PromotionConfirmation({ id }: Props) {
   );
 
   function backToHome(){
-    router.push('/promotion')
+    router.push('/promotion?reload=false')
   }
 }

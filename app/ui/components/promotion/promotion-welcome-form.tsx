@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useState } from "react";
 import { CardTranslucid } from "../card-translucid";
 import { TextInput } from "../form-fields/input";
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { WelcomeFormState, validateParticipant } from "@/app/lib/actions/welcome";
 import { SubmitButton } from "../../button";
 import { Promotion } from "@/app/lib/definitions";
@@ -19,7 +19,16 @@ export function PromotionWelcomeForm( { promotion } : Props ) {
   const [state, formAction] = useActionState(validateParticipant, initialState);
   const [formData, setFormData] = useState<any>({});
 
+  const searchParams = useSearchParams();
+  const reload = searchParams.get('reload');
+  const shouldReload = reload ? reload === 'true' : true;
+
   useEffect(() => {
+    if(shouldReload){
+      router.push('/promotion?reload=false');
+      return;
+    }
+
     if (state.errors) {
       setFormData(state.formData || {});
     }
@@ -29,7 +38,7 @@ export function PromotionWelcomeForm( { promotion } : Props ) {
     } else {
       console.log('PROMOCION', promotion)
     }
-  }, [state]);
+  }, [state, router]);
 
   return (
     <div className="flex justify-center items-center min-h-screen">
