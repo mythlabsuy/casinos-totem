@@ -50,7 +50,7 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
           </div>
           <div className="pt-4">
             <TextInput id='full_name' name="full_name" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="UserIcon"
-            defaultValue={formData.phone_number || participant?.phone_number || ''}
+            defaultValue={formData.full_name || participant?.full_name || ''}
             errors={state.errors ? state.errors.full_name : undefined} 
             label="Nombre y Apellido"/>
           </div>
