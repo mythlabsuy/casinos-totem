@@ -1,7 +1,6 @@
 'use client'
 
 import { Session } from "next-auth";
-// import { useSession } from 'next-auth/react';
 
 interface Props {
   path?: string,
@@ -14,7 +13,7 @@ interface Props {
   session?: Session | null
 }
 
-const API_HOST = 'http://44.198.77.54:441/' //FIXME cambiar esto
+const API_HOST = process.env.NEXT_PUBLIC_API_HOST ? process.env.NEXT_PUBLIC_API_HOST : ''
 
 export async function apiFetchJson({method = 'GET', path = '/', query, body, session, isForm = false, isFileUpload = false, withAuth = true}: Props){
   const response = await apiFetchResponse({method, path, query, body, session, isForm, isFileUpload, withAuth})
@@ -54,5 +53,6 @@ export async function apiFetchResponse({method = 'GET', path = '/', query, body,
 }
 
 export function getFullPath(path?: string){
+  console.log("API HOST", API_HOST);
   return API_HOST + (path ? path : '');
 }
