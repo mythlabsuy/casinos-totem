@@ -1,9 +1,10 @@
 import type { NextAuthConfig } from 'next-auth';
 import { SystemUser } from './app/lib/definitions';
+import { NEXTAUTH_URL } from './app/lib/env';
  
 export const authConfig = {
   pages: {
-    signIn: '/login',
+    signIn: `${NEXTAUTH_URL}/login`,
   },
   trustHost: true,
   callbacks: {

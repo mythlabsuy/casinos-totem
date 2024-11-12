@@ -1,6 +1,6 @@
 'use client'
 
-import { signOut } from "next-auth/react";
+import { userSignOut } from "@/app/lib/sign-out";
 
 interface Props {
   status: number,
@@ -10,7 +10,7 @@ interface Props {
 export function LogOut({status}: Props) {
 
   if(status === 401){
-    signOut({ callbackUrl: "/login" });
+    userSignOut();
   }
 
   return (
