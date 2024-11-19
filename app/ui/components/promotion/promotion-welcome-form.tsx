@@ -13,36 +13,38 @@ interface Props{
 }
 
 export function PromotionWelcomeForm( { promotion } : Props ) {
+  
   const router = useRouter()
-
+  
   const initialState: WelcomeFormState = { message: null, errors: {}, formData: {} };
   const [state, formAction] = useActionState(validateParticipant, initialState);
   const [formData, setFormData] = useState<any>({});
-
+  
   const searchParams = useSearchParams();
   const reload = searchParams.get('reload');
   const shouldReload = reload ? reload === 'true' : true;
-
+  
   useEffect(() => {
+    //??? Porque hice esto?
     if(shouldReload){
       router.push('/promotion?reload=false');
       return;
     }
-
+    
     if (state.errors) {
       setFormData(state.formData || {});
     }
-
+    
+    console.log('PROMOCION', promotion)
     if(!promotion){
       router.push('/promotion/unavailable')
-    } else {
-      console.log('PROMOCION', promotion)
+      console.log('NO PROMOTION AVAILABLE')
     }
   }, [state, router]);
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-        <CardTranslucid title='Ingresa tu documento para participar'> 
+        <CardTranslucid title='Ingresa tu documento para participar'>
           <form action={formAction}>
             <input id="promotion_id" name="promotion_id" type="hidden" value={promotion?.id}/>
             <TextInput id={'document'} className="bg-transparent border-black mt-8 mb-4 px-16" 

@@ -1,5 +1,4 @@
 import { PromotionUnavailable } from '@/app/ui/components/promotion/promotion-unavailable';
-import { lusitana } from '@/app/ui/fonts';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
