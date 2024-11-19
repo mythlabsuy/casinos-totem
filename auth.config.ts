@@ -7,6 +7,9 @@ export const authConfig = {
     signIn: `${NEXTAUTH_URL}/login`,
   },
   trustHost: true,
+  session: {
+    maxAge: 90 * 24 * 60 * 60 //90 days (In seconds)
+  },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
