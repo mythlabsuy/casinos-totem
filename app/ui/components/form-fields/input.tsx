@@ -104,6 +104,7 @@ export default function Input({ id, name, placeholder, className, defaultValue, 
             placeholder={ placeholder ? placeholder : '' }
             className={ clsx(
               "peer block w-full rounded-2xl border border-black py-2 pl-10 text-2xl outline-2 placeholder:text-gray-700 text-gray-700",
+              errors ? "border-red-700" : null,
               className ? className : null
             )}
             aria-describedby={`${id}-error`}
@@ -126,11 +127,11 @@ export default function Input({ id, name, placeholder, className, defaultValue, 
 
 export function FormFieldsErrors({ errors } : {errors: string[]}) {
   return (
-    <div className="bg-red-200 pr-4 py-1">
+    <div className="py-1">
       <div className="flex">
         <div className="ml-0">
-          <div className="mt-0 text-lg text-red-700">
-            <ul role="list" className="list-none space-y-1 pl-5">
+          <div className="mt-0 text-xl text-red-700 font-medium">
+            <ul role="list" className="list-none space-y-1 pl-1">
             { errors.map((error: string) => (
                 <li key={error}>
                   {error}
