@@ -54,24 +54,15 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
             errors={state.errors ? state.errors.full_name : undefined} 
             label="Nombre y Apellido"/>
           </div>
-          <div className="flex w-full pt-4">
-            <div className="w-1/4 pr-1">
-              <NumberInput id={'phone_area_code'} name="phone_area_code" className="text-2xl rounded-2xl bg-transparent border-black" icon="PlusIcon" 
-              defaultValue={formData.phone_area_code || participant?.phone_number.split(' ')[0] || ''}
-              label="Prefijo"/>
-            </div>
-            <div className="w-3/4">
-              <NumberInput id={'phone_number'} name="phone_number" className="text-2xl rounded-2xl bg-transparent border-black" icon="DevicePhoneMobileIcon" 
-              defaultValue={formData.phone_number || participant?.phone_number.split(' ')[1] || ''}
-              label="Teléfono" step={1}/>
-            </div>
-          </div>
-          {state.errors ? <div id={`phone-error`} aria-live="polite" aria-atomic="true">
-            { state.errors.phone_area_code ? <FormFieldsErrors errors={ state.errors.phone_area_code }/> : null}
-            { state.errors.phone_number ? <FormFieldsErrors errors={ state.errors.phone_number }/> : null}
-          </div> : null}
           <div className="pt-4">
-            <EmailInput id={'email'} name="email" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="AtSymbolIcon"
+            <NumberInput id={'phone_number'} name="phone_number" className="text-2xl rounded-2xl bg-transparent border-black" icon="DevicePhoneMobileIcon" 
+            defaultValue={formData.phone_number || participant?.phone_number || ''}
+            label="Teléfono" step={1}
+            errors={state.errors ? state.errors.phone_number : undefined}
+            />
+          </div>
+          <div className="pt-4">
+            <TextInput id={'email'} name="email" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="AtSymbolIcon"
             defaultValue={formData.email || participant?.email || ''}
             errors={state.errors ? state.errors.email : undefined} 
             label="E-Mail"/>
