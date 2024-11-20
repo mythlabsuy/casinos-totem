@@ -8,7 +8,8 @@ export const metadata: Metadata = {
   title: 'Confirmación',
 };
  
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  let id = (await params).id
   let premise: Premise;
   let promotion: Promotion | undefined = undefined;
   let apiStatus: number = 200;
@@ -39,7 +40,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <main>
       <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('${promotion?.background.path}')` }} >
-        <PromotionConfirmation id={params.id} promotion={promotion}/>
+        <PromotionConfirmation id={id} promotion={promotion}/>
       </div>
     </main>
   );

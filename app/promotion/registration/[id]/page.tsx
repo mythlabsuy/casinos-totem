@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   title: 'Registro',
 };
  
-export default async function Page({ params }: { params: { id: string } }) {
-  
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  let id = (await params).id
   let premise: Premise | undefined = undefined;
   let promotion: Promotion | undefined = undefined;
   let apiStatus: number = 200;
@@ -38,7 +38,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     <main>
       <LogOut status={apiStatus}/>
       <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('${promotion?.background.path}')` }} >
-        <PromotionParticipationForm doc_number={params.id} promotion={promotion} premise={premise}/>
+        <PromotionParticipationForm doc_number={id} promotion={promotion} premise={premise}/>
       </div>
     </main>
   );

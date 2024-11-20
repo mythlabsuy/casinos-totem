@@ -21,12 +21,12 @@
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
     "keen-slider": "^6.8.6",
-    "next": "15.0.0-rc.0",
-    "next-auth": "5.0.0-beta.19",
+    "next": "15.0.3",
+    "next-auth": "5.0.0-beta.25",
     "pdfjs-dist": "^2.15.349",
     "postcss": "8.4.38",
-    "react": "19.0.0-rc-f994737d14-20240522",
-    "react-dom": "19.0.0-rc-f994737d14-20240522",
+    "react": "19.0.0-rc.1",
+    "react-dom": "19.0.0-rc.1",
     "tailwindcss": "3.4.4",
     "typescript": "5.5.2",
     "use-debounce": "^10.0.1",
@@ -35,10 +35,10 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/node": "20.14.8",
-    "@types/react": "18.3.3",
-    "@types/react-dom": "18.3.0",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
     "eslint": "^8",
-    "eslint-config-next": "14.2.4"
+    "eslint-config-next": "15.0.3"
   },
   "engines": {
     "node": ">=20.12.0"
