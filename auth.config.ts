@@ -4,7 +4,7 @@ import { NEXTAUTH_URL } from './app/lib/env';
  
 export const authConfig = {
   pages: {
-    signIn: `${NEXTAUTH_URL}/login`,
+    signIn: `/login`,
   },
   trustHost: true,
   session: {
