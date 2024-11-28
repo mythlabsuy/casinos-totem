@@ -10,9 +10,10 @@ import { Promotion } from "@/app/lib/definitions";
 
 interface Props{
   promotion: Promotion | undefined;
+  premiseId : number | undefined;
 }
 
-export function PromotionWelcomeForm( { promotion } : Props ) {
+export function PromotionWelcomeForm( { promotion, premiseId } : Props ) {
   
   const router = useRouter()
   
@@ -25,11 +26,6 @@ export function PromotionWelcomeForm( { promotion } : Props ) {
   const shouldReload = reload ? reload === 'true' : true;
   
   useEffect(() => {
-    //??? Porque hice esto?
-    if(shouldReload){
-      router.push('/promotion?reload=false');
-      return;
-    }
     
     if (state.errors) {
       setFormData(state.formData || {});
@@ -40,12 +36,13 @@ export function PromotionWelcomeForm( { promotion } : Props ) {
       router.push('/promotion/unavailable')
       console.log('NO PROMOTION AVAILABLE')
     }
-  }, [state, router]);
+  }, [state, router, promotion]);
 
   return (
     <div className="flex justify-center items-center min-h-screen">
         <CardTranslucid title='Ingresa tu documento para participar'>
           <form action={formAction}>
+          <input id="premise_id" name="premise_id" type="hidden" value={premiseId}/>
             <input id="promotion_id" name="promotion_id" type="hidden" value={promotion?.id}/>
             <TextInput id={'document'} className="bg-transparent border-black mt-8 mb-4 px-16" 
               errors={state && state.errors ? state.errors.document : undefined} 

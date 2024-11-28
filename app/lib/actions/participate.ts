@@ -64,6 +64,7 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
   let registrationOk = false;
   let registrationStatus = 200;
   let participation_id = '0';
+  let responseDetail: string | undefined;
 
   try {
     const body: Participant = {
@@ -87,6 +88,7 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
 
     registrationOk = response.ok;
     registrationStatus = response.status;
+    responseDetail = responseJson.detail;
 
   } catch (error) {
     return {
@@ -94,13 +96,16 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
       formData: Object.fromEntries(formData.entries()),
     };
   }
-  
-  if(registrationStatus === 200){
+
+  if (registrationStatus === 200) {
     redirect(`/promotion/confirmation/${participation_id}`);
-  } else if(registrationStatus === 400) {
-    redirect('/promotion/unable_to_participate');
+  } else if (registrationStatus === 400) {
+    if (responseDetail == 'Ya has participado en esta promoción') {
+      redirect('/promotion/unable_to_participate');
+    }
+    redirect('/promotion/unavailable')
   } else {
     //TODO ver que otros posibles errores hay y como mostrar al usuario
-    redirect('/promotion/unable_to_participate/')
+    redirect('/promotion/unavailable')
   }
 }
