@@ -33,8 +33,6 @@ export default async function Page() {
         redirect('/promotion/unavailable')
       }
     }
-
-    console.log("PREMISES", session.user_data?.premises);
   } else {
     //TODO ver como manejar cuando no hay session
   }

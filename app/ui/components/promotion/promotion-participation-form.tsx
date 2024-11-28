@@ -67,20 +67,20 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
             errors={state.errors ? state.errors.email : undefined} 
             label="E-Mail"/>
           </div>
-          <div className="mt-4">
+          <div className="mt-4 flex flex-row-reverse items-center gap-1 justify-end">
             <SwitchWithIcon id={'is_over_18'} label={Over18Label}
             iconDisabled="XMarkIcon" iconEnabled="CheckIcon" 
             defaultEnabled={ formData.is_over_18 || participant?.over_18 || true } 
             onChange={() => setIsOver18(!isOver18)}/>
           </div>
-          <div className="mt-4">
+          <div className="mt-4 flex flex-row-reverse items-center gap-1 justify-end">
             <SwitchWithIcon id={'accepts_tos'} 
             label={ TosLabel }
             iconDisabled="XMarkIcon" iconEnabled="CheckIcon" 
             defaultEnabled={ formData.accepts_tos || participant?.accepts_terms_of_service || true } 
             onChange={() => setAcceptsTos(!acceptsTos)}/>
           </div>
-          <div className="mt-4">
+          <div className="mt-4 flex flex-row-reverse items-center gap-1 justify-end">
             <SwitchWithIcon id={'accepts_privacy_policy'} label={PrivacyPolicyLabel} 
             iconDisabled="XMarkIcon" iconEnabled="CheckIcon" 
             defaultEnabled={ formData.accepts_privacy_policy || participant?.accepts_privacy_policy || true } 
@@ -91,7 +91,7 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
             { state.errors.accepts_tos ? <FormFieldsErrors errors={ state.errors.accepts_tos }/> : null}
             { state.errors.accepts_privacy_policy ? <FormFieldsErrors errors={ state.errors.accepts_privacy_policy }/> : null}
           </div> : null}
-          <div className="mt-6 flex justify-center">
+          <div className="mt-6 mb-3 flex justify-center">
             <SubmitButton type="submit" className="flex h-10 items-center justify-items-center rounded-2xl bg-primary-600 py-8 text-2xl 
               font-medium text-white transition-colors hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 
               focus-visible:outline-offset-2 focus-visible:outline-primary-600 uppercase w-96 text-center">Participar Ahora</SubmitButton>
