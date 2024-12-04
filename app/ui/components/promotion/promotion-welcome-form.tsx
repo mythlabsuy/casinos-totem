@@ -27,7 +27,7 @@ export function PromotionWelcomeForm( { promotion, premiseId } : Props ) {
   
   useEffect(() => {
     
-    if (state.errors) {
+    if (state?.errors) {
       setFormData(state.formData || {});
     }
     
@@ -45,7 +45,7 @@ export function PromotionWelcomeForm( { promotion, premiseId } : Props ) {
           <input id="premise_id" name="premise_id" type="hidden" value={premiseId}/>
             <input id="promotion_id" name="promotion_id" type="hidden" value={promotion?.id}/>
             <TextInput id={'document'} className="bg-transparent border-black mt-8 mb-4 px-16" 
-              errors={state && state.errors ? state.errors.document : undefined} 
+              errors={state && state?.errors ? state.errors.document : undefined} 
               defaultValue={formData.document || ''}
               icon="MagnifyingGlassIcon"/>
 

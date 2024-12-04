@@ -27,7 +27,7 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
   const [acceptsPrivacyPolicy, setAcceptsPrivacyPolicy] = useState<boolean>(state.formData.accepts_privacy_policy || participant?.accepts_privacy_policy || true);
 
   useEffect(() => {
-    if (state && state.errors) {
+    if (state && state?.errors) {
       setFormData(state.formData || {});
     }
   }, [state]);
@@ -51,20 +51,20 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
           <div className="pt-4">
             <TextInput id='full_name' name="full_name" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="UserIcon"
             defaultValue={formData.full_name || participant?.full_name || ''}
-            errors={state.errors ? state.errors.full_name : undefined} 
+            errors={state?.errors ? state.errors.full_name : undefined} 
             label="Nombre y Apellido"/>
           </div>
           <div className="pt-4">
             <NumberInput id={'phone_number'} name="phone_number" className="text-2xl rounded-2xl bg-transparent border-black" icon="DevicePhoneMobileIcon" 
             defaultValue={formData.phone_number || participant?.phone_number || ''}
             label="Teléfono" step={1}
-            errors={state.errors ? state.errors.phone_number : undefined}
+            errors={state?.errors ? state.errors.phone_number : undefined}
             />
           </div>
           <div className="pt-4">
             <TextInput id={'email'} name="email" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="AtSymbolIcon"
             defaultValue={formData.email || participant?.email || ''}
-            errors={state.errors ? state.errors.email : undefined} 
+            errors={state?.errors ? state.errors.email : undefined} 
             label="E-Mail"/>
           </div>
           <div className="mt-4 flex flex-row-reverse items-center gap-1 justify-end">
@@ -86,10 +86,10 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
             defaultEnabled={ formData.accepts_privacy_policy || participant?.accepts_privacy_policy || true } 
             onChange={() => setAcceptsPrivacyPolicy(!acceptsPrivacyPolicy)}/>
           </div>
-          {state.errors ? <div id={`toggle-error`} aria-live="polite" aria-atomic="true">
-            { state.errors.is_over_18 ? <FormFieldsErrors errors={ state.errors.is_over_18 }/> : null}
-            { state.errors.accepts_tos ? <FormFieldsErrors errors={ state.errors.accepts_tos }/> : null}
-            { state.errors.accepts_privacy_policy ? <FormFieldsErrors errors={ state.errors.accepts_privacy_policy }/> : null}
+          {state?.errors ? <div id={`toggle-error`} aria-live="polite" aria-atomic="true">
+            { state?.errors.is_over_18 ? <FormFieldsErrors errors={ state.errors.is_over_18 }/> : null}
+            { state?.errors.accepts_tos ? <FormFieldsErrors errors={ state.errors.accepts_tos }/> : null}
+            { state?.errors.accepts_privacy_policy ? <FormFieldsErrors errors={ state.errors.accepts_privacy_policy }/> : null}
           </div> : null}
           <div className="mt-6 mb-3 flex justify-center">
             <SubmitButton type="submit" className="flex h-10 items-center justify-items-center rounded-2xl bg-primary-600 py-8 text-2xl 

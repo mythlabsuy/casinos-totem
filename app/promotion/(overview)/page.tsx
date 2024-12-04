@@ -1,5 +1,5 @@
 import { fetchActivePromotion } from '@/app/lib/data/promotions';
-import { ApiResponse, Premise, Promotion } from '@/app/lib/definitions';
+import { ApiResponse, Promotion, TokenPremise } from '@/app/lib/definitions';
 import { LogOut } from '@/app/ui/components/logOut';
 import { PromotionWelcomeForm } from '@/app/ui/components/promotion/promotion-welcome-form';
 import { auth } from '@/auth';
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
  
 export default async function Page() {
-  let premise: Premise;
+  let tokenPremise: TokenPremise;
   let promotion: Promotion | undefined = undefined;
   let apiStatus: number = 200;
   let premiseId : number | undefined = undefined;
@@ -21,10 +21,10 @@ export default async function Page() {
   // If the user has many premises, only the first one will be used.
   // Totem users should have only 1 premise
   if(session && session.user_data){
-    premise = session.user_data?.premises[0];
-    premiseId = premise.id;
+    tokenPremise = session.user_data?.premises[0];
+    premiseId = tokenPremise.id;
     
-    let promotionResp: ApiResponse = await fetchActivePromotion(premise.id);
+    let promotionResp: ApiResponse = await fetchActivePromotion(premiseId);
     
     apiStatus = promotionResp.status;
     if(promotionResp.status !== 401){
