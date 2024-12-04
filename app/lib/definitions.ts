@@ -100,6 +100,11 @@ export type SystemUser = {
   username: string;
   email: string;
   role: Role;
-  premises: Premise[];
+  premises: TokenPremise[];
   disabled: boolean;
+}
+
+export type TokenPremise = {
+  id : number;
+  name : string;
 }
