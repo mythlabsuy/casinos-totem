@@ -1,6 +1,7 @@
+import { fetchParticipantByDocumentNumber } from '@/app/lib/data/participants';
 import { fetchPremiseById } from '@/app/lib/data/premises';
 import { fetchActivePromotion } from '@/app/lib/data/promotions';
-import { ApiResponse, Premise, Promotion, TokenPremise } from '@/app/lib/definitions';
+import { ApiResponse, Participant, Premise, Promotion, TokenPremise } from '@/app/lib/definitions';
 import { LogOut } from '@/app/ui/components/logOut';
 import { PromotionParticipationForm } from '@/app/ui/components/promotion/promotion-participation-form';
 import { auth } from '@/auth';
@@ -15,6 +16,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   let premise : Premise | undefined = undefined;
   let tokenPremise: TokenPremise | undefined = undefined;
   let promotion: Promotion | undefined = undefined;
+  let participant: Participant | undefined = undefined;
   let apiStatus: number = 200;
   const session = await auth();
   
@@ -27,14 +29,20 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     let promotionResp: ApiResponse = await fetchActivePromotion(tokenPremise.id);
 
     apiStatus = promotionResp.status;
-    if(promotionResp.status !== 401){
+    if(apiStatus !== 401){
       promotion = promotionResp.data;
 
       let premisesResp: ApiResponse = await fetchPremiseById(tokenPremise.id);
 
       apiStatus = premisesResp.status;
-      if(premisesResp.status != 401){
+      if(apiStatus != 401){
         premise = premisesResp.data;
+
+        let participantResponse : ApiResponse = await fetchParticipantByDocumentNumber(id);
+        apiStatus = participantResponse.status;
+        if(apiStatus!= 401){
+          participant = participantResponse.data;
+        }
       }
     }
 
@@ -47,7 +55,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     <main>
       <LogOut status={apiStatus}/>
       <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('${promotion?.background.path}')` }} >
-        <PromotionParticipationForm doc_number={id} promotion={promotion} premise={premise}/>
+        <PromotionParticipationForm doc_number={id} promotion={promotion} premise={premise} participant={participant}/>
       </div>
     </main>
   );
