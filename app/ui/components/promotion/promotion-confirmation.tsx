@@ -24,9 +24,12 @@ export function PromotionConfirmation({ id, promotion }: Props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("SESSION PRINT: ", session);
+        console.log("SHOULD PRINT: ", shouldPrint);
         if(session && shouldPrint){
           const response = await fetchParticipationPrint(parseInt(id), session);
           const blob = await response.blob();
+          console.log("printPDF");
           await printPDF(blob)
           router.push(`/promotion/confirmation/${id}?print=false`);
         }
