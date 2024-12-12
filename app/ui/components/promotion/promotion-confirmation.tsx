@@ -3,7 +3,7 @@
 import { printPDF } from "@/app/lib/print";
 import { CardTranslucid } from "../card-translucid";
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchParticipationPrint } from "@/app/lib/data/participate";
 import { useSession } from "next-auth/react";
 import { Premise, Promotion } from "@/app/lib/definitions";
@@ -21,6 +21,8 @@ export function PromotionConfirmation({ id, promotion }: Props) {
   const print = searchParams.get('print');
   const shouldPrint = print ? print === 'true' : true;
   
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,12 +37,21 @@ export function PromotionConfirmation({ id, promotion }: Props) {
         }
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchData();
+    if(session){
+      fetchData();
+      setLoading(false);
+    } 
   }, [session]); //TODO Empty dependency array to run only on mount?
 
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  
   return (
     <div className="flex justify-center items-center min-h-screen">
       <CardTranslucid title='Gracias por participar!' onClickCallback={() => { backToHome() }} btnText='Volver' 
