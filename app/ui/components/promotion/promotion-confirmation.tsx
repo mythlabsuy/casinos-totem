@@ -49,7 +49,7 @@ export function PromotionConfirmation({ id, promotion, userSession }: Props) {
         btnClassName={`flex h-10 items-center justify-items-center rounded-2xl bg-primary-600 py-8 text-2xl font-medium text-white 
         transition-colors hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 
         focus-visible:outline-offset-2 focus-visible:outline-primary-600 uppercase w-96`}>
-        <p className="text-2xl">
+        <p className="text-2xl text-gray-800">
           Estamos imprimiendo tu ticket.
           <br/>
           {promotion ? promotion.participation_instructions: ''}
