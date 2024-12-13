@@ -6,16 +6,18 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { fetchParticipationPrint } from "@/app/lib/data/participate";
 import { useSession } from "next-auth/react";
-import { Premise, Promotion } from "@/app/lib/definitions";
+import { Promotion } from "@/app/lib/definitions";
+import { Session } from "next-auth";
 
 interface Props {
   id: string;
   promotion?: Promotion;
+  userSession: Session | null;
 }
 
-export function PromotionConfirmation({ id, promotion }: Props) {
+export function PromotionConfirmation({ id, promotion, userSession }: Props) {
   const router = useRouter()
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
   const searchParams = useSearchParams();
   const print = searchParams.get('print');
@@ -24,10 +26,10 @@ export function PromotionConfirmation({ id, promotion }: Props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("SESSION PRINT: ", session);
+        console.log("SESSION PRINT: ", userSession);
         console.log("SHOULD PRINT: ", shouldPrint);
-        if(session && shouldPrint){
-          const response = await fetchParticipationPrint(parseInt(id), session);
+        if(userSession && shouldPrint){
+          const response = await fetchParticipationPrint(parseInt(id), userSession);
           const blob = await response.blob();
           console.log("printPDF");
           await printPDF(blob)
@@ -39,7 +41,7 @@ export function PromotionConfirmation({ id, promotion }: Props) {
     };
 
     fetchData();
-  }, [session]); //TODO Empty dependency array to run only on mount?
+  }, [userSession]); //TODO Empty dependency array to run only on mount?
 
   return (
     <div className="flex justify-center items-center min-h-screen">

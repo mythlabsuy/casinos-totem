@@ -1,5 +1,5 @@
 import { fetchActivePromotion } from '@/app/lib/data/promotions';
-import { ApiResponse, Premise, Promotion, TokenPremise } from '@/app/lib/definitions';
+import { ApiResponse, Promotion, TokenPremise } from '@/app/lib/definitions';
 import { PromotionConfirmation } from '@/app/ui/components/promotion/promotion-confirmation';
 import { auth } from '@/auth';
 import { Metadata } from 'next';
@@ -32,7 +32,6 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
       //TODO show error
     }
 
-
     console.log("PREMISES", session.user_data?.premises);
   } else {
     //TODO ver como manejar cuando no hay session
@@ -40,7 +39,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   return (
     <main>
       <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('${promotion?.background.path}')` }} >
-        <PromotionConfirmation id={id} promotion={promotion}/>
+        <PromotionConfirmation id={id} promotion={promotion} userSession={session}/>
       </div>
     </main>
   );
