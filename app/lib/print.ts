@@ -12,11 +12,11 @@ export const printPDF = async (blob: Blob | MediaSource) => {
       if(printIframe.contentWindow){
         try {
           printIframe.contentWindow.print()
-          setTimeout(() => {
-            document.body.removeChild(printIframe)
-            URL.revokeObjectURL(url)
-            resolve()
-          }, 2000)
+          // setTimeout(() => {
+          //   document.body.removeChild(printIframe)
+          //   URL.revokeObjectURL(url)
+          //   resolve()
+          // }, 2000)
         } catch (error) {
           reject(new Error('Error al imprimir: ' + error))
         }
@@ -25,9 +25,9 @@ export const printPDF = async (blob: Blob | MediaSource) => {
       }
     }
     printIframe.onerror = () => {
-      document.body.removeChild(printIframe)
-      URL.revokeObjectURL(url)
-      reject(new Error('Error al cargar el PDF'))
+      // document.body.removeChild(printIframe)
+      // URL.revokeObjectURL(url)
+      // reject(new Error('Error al cargar el PDF'))
     }
     document.body.appendChild(printIframe)
   })
