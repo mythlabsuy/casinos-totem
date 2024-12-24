@@ -11,9 +11,10 @@ interface Props {
   btnClassName?: string,
   children?: React.ReactNode;
   participationId?: string;
+  replaceOnReprint?: boolean;
 }
 
-export function CardTranslucid({ children, title, onClickCallback, btnText, btnClassName, participationId}: Props) {
+export function CardTranslucid({ children, title, onClickCallback, btnText, btnClassName, participationId, replaceOnReprint = false}: Props) {
   const router = useRouter()
   return (
     <div className="bg-white/50 backdrop-blur-lg rounded-2xl px-24">
@@ -24,7 +25,15 @@ export function CardTranslucid({ children, title, onClickCallback, btnText, btnC
         </div>
         <div className="mt-5">
           {
-            onClickCallback ? <Button onClickCallback={ () => router.push(`/promotion/reprint/${participationId}`)} className={ !btnClassName ? `flex h-10 items-center justify-items-center rounded-lg bg-primary-600 px-4 text-sm font-medium text-white 
+            onClickCallback ? <Button   onClickCallback={() => {
+              if (replaceOnReprint) {
+                console.log('refresh');
+                window.location.reload();
+              } else {
+                console.log('push');
+                router.push(`/promotion/reprint/${participationId}`);
+              }
+            }} className={ !btnClassName ? `flex h-10 items-center justify-items-center rounded-lg bg-primary-600 px-4 text-sm font-medium text-white 
               transition-colors hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 
               focus-visible:outline-offset-2 focus-visible:outline-primary-600` : btnClassName}>
                   Reimprimir ticket

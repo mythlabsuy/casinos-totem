@@ -86,6 +86,23 @@ export function NumberInput({ id, name, placeholder, className, defaultValue = 0
   );
 }
 
+export function PasswordInput({ id, name, placeholder, className, defaultValue = '', label = '', icon, errors, disabled = false, ...rest }: TextInputProps ) {
+  return (
+    <Input id={id} 
+    name={name} 
+    placeholder={placeholder} 
+    className={className} 
+    defaultValue={defaultValue} 
+    label={label} 
+    icon= {icon} 
+    errors={errors} 
+    type='password' 
+    disabled = {disabled}
+    {...rest}
+    />
+  );
+}
+
 export default function Input({ id, name, placeholder, className, defaultValue, label = '', icon, errors, type, step, min, max, disabled = false, ...rest }: InputProps ) {
   return (
     <>

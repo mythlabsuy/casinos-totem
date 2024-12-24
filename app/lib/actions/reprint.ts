@@ -14,6 +14,7 @@ export type ReprintFormState = {
     message?: string | null;
     formData?: any | null;
     data?: Blob | null;
+    success? : boolean | null;
 };
 
 const ReprintFormSchema = z.object({
@@ -39,8 +40,8 @@ export async function reprintParticipation(prevState: ReprintFormState, formData
     const { username, password } = validatedFields.data;
 
     try {
-        let promotionId = formData.get('promotion_id');
-        if (!promotionId) {
+        let participationId = formData.get('participantion_id');
+        if (!participationId) {
             return {
                 message: 'Error al validar la participación.',
                 formData: Object.fromEntries(formData.entries()),
@@ -51,13 +52,13 @@ export async function reprintParticipation(prevState: ReprintFormState, formData
         data.append('username', username);
         data.append('password', password);
 
-        const promotionPath = `promotion-participants/${promotionId}/reprint`;
+        const promotionPath = `promotion-participants/${participationId}/reprint`;
 
         const response = await apiFetchServer({ method: 'POST', path: promotionPath, isForm: true,  body: data });
         const responseBlob = await response.blob();
 
         return {
-            succcess: true,
+            success: true,
             data: responseBlob,
         }
 
