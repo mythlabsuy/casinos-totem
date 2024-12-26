@@ -27,9 +27,9 @@ export function ReprintPromotionForm( { participationId } : Props ) {
 
     useEffect(() => {
       const handleDataChange = async () => {
+        setLoading(false)
         try{
         if (state.data instanceof Blob && state.data.size > 0) {
-          setLoading(false)
           await printPDF(state.data)
         }
       } catch (error) {
