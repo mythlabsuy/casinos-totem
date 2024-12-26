@@ -15,6 +15,7 @@ export type ReprintFormState = {
     formData?: any | null;
     data?: Blob | null;
     success? : boolean | null;
+    error? : boolean | null;
 };
 
 const ReprintFormSchema = z.object({
@@ -64,7 +65,8 @@ export async function reprintParticipation(prevState: ReprintFormState, formData
 
     } catch (error) {
         return {
-            message: 'Error al validar si la persona puede participar.',
+            error: true,
+            message: 'Error al reimprimir el ticket.',
             formData: Object.fromEntries(formData.entries()),
         };
     }

@@ -8,6 +8,7 @@ import { SubmitButton } from "../../button";
 import { InfiniteProgressBar } from "../infinite-progress";
 import { ReprintFormState, reprintParticipation } from "@/app/lib/actions/reprint";
 import { printPDF } from "@/app/lib/print";
+import Swal from 'sweetalert2';
 
 interface Props{
   participationId: string;
@@ -36,8 +37,24 @@ export function ReprintPromotionForm( { participationId } : Props ) {
         console.error('Error fetching data:', error);
       }
       }
-      handleDataChange();
-    }, [participationId, router, state.data]);
+
+      const handleError = () => {
+        setLoading(false);
+        Swal.fire({
+          title: 'Error!',
+          text: state.message || 'Ha ocurrido un error',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+      };
+
+      if(state.success){
+        handleDataChange();
+      }
+      if (state.error) {
+        handleError();
+      }
+    }, [state]);
   
   if(state.success === true &&  !isPending){
     return (
