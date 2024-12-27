@@ -8,6 +8,7 @@ import { fetchParticipationPrint } from "@/app/lib/data/participate";
 import { useSession } from "next-auth/react";
 import { Promotion } from "@/app/lib/definitions";
 import { Session } from "next-auth";
+import Swal from "sweetalert2";
 
 interface Props {
   id: string;
@@ -29,11 +30,22 @@ export function PromotionConfirmation({ id, promotion, userSession }: Props) {
         console.log("SESSION PRINT: ", userSession);
         console.log("SHOULD PRINT: ", shouldPrint);
         if(userSession && shouldPrint){
-          const response = await fetchParticipationPrint(parseInt(id), userSession);
-          const blob = await response.blob();
-          console.log("printPDF");
-          await printPDF(blob)
-          router.push(`/promotion/confirmation/${id}?print=false`);
+          try {
+            const response = await fetchParticipationPrint(parseInt(id), userSession);
+            const blob = await response.blob();
+            console.log("printPDF");
+            await printPDF(blob)
+            //* Note: code below printPDF will not excecute.
+            router.push(`/promotion/confirmation/${id}?print=false`);
+          } catch (error) {
+            Swal.fire({
+              title: 'Error!',
+              text: error instanceof Error ? error.message ?? 'Ha ocurrido un error' : 'Ha ocurrido un error',
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+          }
+
         }
       } catch (error) {
         console.error('Error fetching data:', error);
