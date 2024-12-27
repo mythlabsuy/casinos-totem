@@ -25,7 +25,7 @@ export function CardTranslucid({ children, title, onClickCallback, btnText, btnC
         </div>
         <div className="mt-5">
           {
-            onClickCallback ? <Button   onClickCallback={() => {
+            participationId ? <Button   onClickCallback={() => {
               if (replaceOnReprint) {
                 console.log('refresh');
                 window.location.reload();

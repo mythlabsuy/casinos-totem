@@ -13,6 +13,7 @@ export type WelcomeFormState = {
   };
   message?: string | null;
   formData?: any | null;
+  error? : boolean | null;
 };
 
 const WelcomeFormSchema = z.object({
@@ -77,6 +78,7 @@ export async function validateParticipant(prevState: WelcomeFormState, formData:
     }
   } catch (error) {
     return {
+      error: true,
       message: 'Error al validar si la persona puede participar.',
       formData: Object.fromEntries(formData.entries()),
     };

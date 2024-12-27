@@ -8,6 +8,7 @@ import { Participant, Premise, Promotion } from "@/app/lib/definitions";
 
 import { createOrUpdateParticipant, ParticipateFormState } from '@/app/lib/actions/participate'
 import { SubmitButton } from "../../button";
+import Swal from "sweetalert2";
 
 interface Props {
   doc_number: string;
@@ -31,6 +32,22 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
       setFormData(state.formData || {});
     }
   }, [state]);
+
+  useEffect(() => {
+    const handleError = () => {
+      Swal.fire({
+        title: 'Error!',
+        text: state.message || 'Ha ocurrido un error',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
+    };
+
+    if (state.error) {
+      handleError();
+    }
+  }, [state]);
+
   const Over18Label: LabelProps = { start: 'Soy mayor de 18' }
   const TosLabel: LabelProps = { start: 'Acepto los', hrefText: 'términos y condiciones', href: promotion?.terms_and_conditions.path, end: 'del sorteo.', modalTitle: 'Términos y condiciones'}
   const PrivacyPolicyLabel: LabelProps = { start: 'Acepto las', hrefText: 'políticas de privacidad', href: premise?.privacy_policy.path, end: 'del organizador.', modalTitle: 'Políticas de privacidad'}
