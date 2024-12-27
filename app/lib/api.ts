@@ -43,9 +43,11 @@ export async function apiFetchServer({ method = 'GET', path = '/', query, body, 
     if (!response.ok) {
       const errorResponse = await response.json();
       const errorDetail = errorResponse.detail || 'Ha ocurrido un error';
-      throw new Error(errorDetail)
+      const error = new Error(errorDetail) as Error & { status?: number };
+      error.status = response.status;
+      throw error
     }
-    return response;
+    return response; 
   } catch (error) {
     if (error instanceof Error) {
       throw error;
