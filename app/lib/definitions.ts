@@ -7,7 +7,7 @@ declare module 'next-auth' {
   interface Session {
     accessToken?: any;
     refreshToken?: any;
-    user_data?: SystemUser;
+    user_data?: SessionUser;
   }
 
   interface User {
@@ -16,19 +16,30 @@ declare module 'next-auth' {
       refresh_token: string;
       token_type: string;
     };
-    user_data?: SystemUser;
+    user_data?: SessionUser;
   }
 }
 
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-  premises: Premise[];
-  tokens: any; //TODO armar tipo de datos para el retorno de los tokens
-  user_data?: SystemUser;
+export type AuthUser = {
+  tokens: any; 
+  user_data?: SessionUser;
 };
+
+export type SessionUser = {
+  email: string;
+  roles: number[];
+  username: string;
+  premises: TokenPremise[];
+}
+
+export type User = {
+  id: number;
+  username: string;
+  email: string;
+  role: Role;
+  premises: Premise[];
+  disabled: boolean;
+}
 
 export type Premise = {
   id: number;
@@ -95,14 +106,14 @@ export type MediaFile = {
   disabled?: boolean;
 }
 
-export type SystemUser = {
-  id: number;
-  username: string;
-  email: string;
-  role: Role;
-  premises: TokenPremise[];
-  disabled: boolean;
-}
+// export type SystemUser = {
+//   id: number;
+//   username: string;
+//   email: string;
+//   role: Role;
+//   premises: TokenPremise[];
+//   disabled: boolean;
+// }
 
 export type TokenPremise = {
   id : number;

@@ -2,12 +2,12 @@ import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { authConfig } from './auth.config';
 import { z } from 'zod';
-import type { User } from '@/app/lib/definitions';
+import type { AuthUser } from '@/app/lib/definitions';
 import { apiFetchServer, getFullPath } from '@/app/lib/api';
 import { decodeToken, TokenPayload } from './app/lib/token-decode';
 import { LoginResponse } from './app/lib/responses';
  
-async function getUser(username: string, password: string): Promise<User | undefined> {
+async function getUser(username: string, password: string): Promise<AuthUser | undefined> {
   try {
     const data: FormData = new FormData()
     data.append('username', username);
@@ -24,17 +24,14 @@ async function getUser(username: string, password: string): Promise<User | undef
 
     console.log('TOKENS RESPONSE', responseTokens, "TOKENS", tokens);
     
-    const responseUser = await fetchUser(tokens);
-    console.log('SI ACA NO LLEGA SE ROMPIO EN EL FETCH USER');
-    
-    const user: User = {
-      email: decodedToken.email,
-      password: '',
-      id: '1', //TODO refactorear esto con tiempo
-      name: 'John Doe',
-      premises: decodedToken.premises,
+    const user: AuthUser = {
       tokens: tokens,
-      user_data: await responseUser.json()
+      user_data: {
+        username: decodedToken.sub,
+        email: decodedToken.email,
+        premises: decodedToken.premises,
+        roles: decodedToken.scopes,
+      }
     }
     
     return user;
