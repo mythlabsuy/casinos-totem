@@ -26,6 +26,13 @@ export function ReprintPromotionForm( { participationId } : Props ) {
 
   const formRef = useRef<HTMLFormElement>(null);
 
+  useEffect(() => {
+    if (state?.errors) {
+      setLoading(false)
+      setFormData(state.formData || {});
+    }
+  }, [state, ]);
+
     useEffect(() => {
       const handleDataChange = async () => {
         setLoading(false)

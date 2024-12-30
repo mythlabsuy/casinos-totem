@@ -33,6 +33,7 @@ export function PromotionWelcomeForm( { promotion, premiseId } : Props ) {
   useEffect(() => {
     
     if (state?.errors) {
+      setLoading(false)
       setFormData(state.formData || {});
     }
     
