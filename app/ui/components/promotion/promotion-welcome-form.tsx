@@ -70,7 +70,7 @@ export function PromotionWelcomeForm( { promotion, premiseId } : Props ) {
               defaultValue={formData.document || ''}
               icon="MagnifyingGlassIcon"/>
 
-            <div className="mt-6 flex flex-col justify-center">
+            <div className="mt-6 flex flex-col gap-1 items-center justify-center">
               <SubmitButton type="submit" onClick={() => { 
                   setLoading(true);
                   // Changing the button to disabled status stops the form submission. This submits the form again.

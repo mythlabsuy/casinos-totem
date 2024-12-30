@@ -1,6 +1,7 @@
 .container {
   margin: auto;
   position: relative;
+  width: 24rem; /* w-96 on tailwind */
 }
 
 .progress-bar {
