@@ -54,7 +54,7 @@ export function PromotionWelcomeForm( { promotion, premiseId } : Props ) {
       });
     };
 
-    if (state.error) {
+    if (state?.error) {
       handleError();
     }
   }, [state]);

@@ -48,10 +48,10 @@ export function ReprintPromotionForm( { participationId } : Props ) {
         });
       };
 
-      if(state.success){
+      if(state?.success){
         handleDataChange();
       }
-      if (state.error) {
+      if (state?.error) {
         handleError();
       }
     }, [state]);

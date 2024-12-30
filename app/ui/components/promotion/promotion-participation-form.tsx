@@ -43,7 +43,7 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
       });
     };
 
-    if (state.error) {
+    if (state?.error) {
       handleError();
     }
   }, [state]);
