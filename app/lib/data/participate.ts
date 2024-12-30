@@ -1,5 +1,4 @@
-'use client'
-
+'only server'
 import { Session } from "next-auth";
 import { apiFetchResponse } from "../api-client";
 

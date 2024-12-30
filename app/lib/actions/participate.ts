@@ -17,6 +17,7 @@ export type ParticipateFormState = {
   };
   message?: string | null;
   formData?: any | null;
+  error? : boolean | null;
 };
 
 const ParticipateFormSchema = z.object({
@@ -92,7 +93,8 @@ export async function createOrUpdateParticipant(prevState: ParticipateFormState,
 
   } catch (error) {
     return {
-      message: 'Database Error: Failed to Create Participant.',
+      error: true,
+      message: 'Error al completar la participación.',
       formData: Object.fromEntries(formData.entries()),
     };
   }

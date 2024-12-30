@@ -6,8 +6,8 @@ import { SessionProvider } from 'next-auth/react';
 export const metadata: Metadata = {
   //TODO update metadata
   title: {
-    template: '%s | Acme Dashboard',
-    default: 'Acme Dashboard',
+    template: '%s | Totem',
+    default: 'Totem',
   },
   description: 'The official Next.js Learn Dashboard built with App Router.',
   metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),

@@ -8,6 +8,7 @@ import { fetchParticipationPrint } from "@/app/lib/data/participate";
 import { useSession } from "next-auth/react";
 import { Promotion } from "@/app/lib/definitions";
 import { Session } from "next-auth";
+import Swal from "sweetalert2";
 
 interface Props {
   id: string;
@@ -29,11 +30,22 @@ export function PromotionConfirmation({ id, promotion, userSession }: Props) {
         console.log("SESSION PRINT: ", userSession);
         console.log("SHOULD PRINT: ", shouldPrint);
         if(userSession && shouldPrint){
-          const response = await fetchParticipationPrint(parseInt(id), userSession);
-          const blob = await response.blob();
-          console.log("printPDF");
-          await printPDF(blob)
-          router.push(`/promotion/confirmation/${id}?print=false`);
+          try {
+            const response = await fetchParticipationPrint(parseInt(id), userSession);
+            const blob = await response.blob();
+            console.log("printPDF");
+            await printPDF(blob)
+            //* Note: code below printPDF will not excecute.
+            router.push(`/promotion/confirmation/${id}?print=false`);
+          } catch (error) {
+            Swal.fire({
+              title: 'Error!',
+              text: error instanceof Error ? error.message ?? 'Ha ocurrido un error' : 'Ha ocurrido un error',
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+          }
+
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -45,7 +57,7 @@ export function PromotionConfirmation({ id, promotion, userSession }: Props) {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <CardTranslucid title='Gracias por participar!' onClickCallback={() => { backToHome() }} btnText='Volver' 
+      <CardTranslucid title='Gracias por participar!' onClickCallback={() => { backToHome() }} btnText='Volver' participationId={id} 
         btnClassName={`flex h-10 items-center justify-items-center rounded-2xl bg-primary-600 py-8 text-2xl font-medium text-white 
         transition-colors hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 
         focus-visible:outline-offset-2 focus-visible:outline-primary-600 uppercase w-96`}>

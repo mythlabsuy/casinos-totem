@@ -8,6 +8,7 @@ import { WelcomeFormState, validateParticipant } from "@/app/lib/actions/welcome
 import { SubmitButton } from "../../button";
 import { Promotion } from "@/app/lib/definitions";
 import { InfiniteProgressBar } from "../infinite-progress";
+import Swal from "sweetalert2";
 
 interface Props{
   promotion: Promotion | undefined;
@@ -32,6 +33,7 @@ export function PromotionWelcomeForm( { promotion, premiseId } : Props ) {
   useEffect(() => {
     
     if (state?.errors) {
+      setLoading(false)
       setFormData(state.formData || {});
     }
     
@@ -41,6 +43,22 @@ export function PromotionWelcomeForm( { promotion, premiseId } : Props ) {
       console.log('NO PROMOTION AVAILABLE')
     }
   }, [state, router, promotion]);
+
+  useEffect(() => {
+    const handleError = () => {
+      setLoading(false);
+      Swal.fire({
+        title: 'Error!',
+        text: state.message || 'Ha ocurrido un error',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
+    };
+
+    if (state?.error) {
+      handleError();
+    }
+  }, [state]);
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -53,7 +71,7 @@ export function PromotionWelcomeForm( { promotion, premiseId } : Props ) {
               defaultValue={formData.document || ''}
               icon="MagnifyingGlassIcon"/>
 
-            <div className="mt-6 flex flex-col justify-center">
+            <div className="mt-6 flex flex-col gap-1 items-center justify-center">
               <SubmitButton type="submit" onClick={() => { 
                   setLoading(true);
                   // Changing the button to disabled status stops the form submission. This submits the form again.
