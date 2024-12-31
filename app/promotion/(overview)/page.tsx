@@ -26,7 +26,6 @@ export default async function Page() {
     premiseId = tokenPremise.id;
     try {
       let promotionResp: ApiResponse = await fetchActivePromotion(premiseId);
-      apiStatus = promotionResp.status;
         promotion = promotionResp.data;
         if(!promotion){
           redirect('/promotion/unavailable')

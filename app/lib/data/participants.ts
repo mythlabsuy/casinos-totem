@@ -20,6 +20,9 @@ export async function fetchParticipantByDocumentNumber(
         return resp
     } catch (error) {
         console.error('Database Error:', error);
+        if (error instanceof Error) {
+            throw error;
+        }
         throw new Error('Error al obtener la el participante');
     }
 }

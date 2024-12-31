@@ -19,6 +19,9 @@ export async function fetchPremiseById(
       return resp
     } catch (error) {
       console.error('Database Error:', error);
+      if(error instanceof Error){
+        throw error;
+      }
       throw new Error('Error al obtener la promocion activa');
     }
   }

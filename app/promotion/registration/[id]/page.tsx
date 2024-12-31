@@ -25,35 +25,44 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   // Totem users should have only 1 premise
   if(session && session.user_data){
     tokenPremise = session.user_data?.premises[0];
-    
-    let promotionResp: ApiResponse = await fetchActivePromotion(tokenPremise.id);
-
-    apiStatus = promotionResp.status;
-    if(apiStatus !== 401){
+    try {
+      let promotionResp: ApiResponse = await fetchActivePromotion(tokenPremise.id);
       promotion = promotionResp.data;
-
       let premisesResp: ApiResponse = await fetchPremiseById(tokenPremise.id);
+      premise = premisesResp.data;
+      let participantResponse : ApiResponse = await fetchParticipantByDocumentNumber(id);
+      participant = participantResponse.data;
 
-      apiStatus = premisesResp.status;
-      if(apiStatus != 401){
-        premise = premisesResp.data;
-
-        let participantResponse : ApiResponse = await fetchParticipantByDocumentNumber(id);
-        apiStatus = participantResponse.status;
-        if(apiStatus!= 401){
-          participant = participantResponse.data;
+    } catch (error) {
+      if (error instanceof Error) {
+        const errWithStatus = error as Error & { status?: number };
+        if (errWithStatus.status) {
+           apiStatus = errWithStatus.status;
+           if(apiStatus!=401){
+            throw error;
+           }else{
+            return(
+              <main>
+                <LogOut status={apiStatus}/>
+              </main>
+              )
+           }
         }
+      }else{
+        throw error;
       }
     }
-
-
   } else {
-    //TODO ver como manejar cuando no hay session
+    console.warn('No session found.');
+    return (
+      <main>
+        <LogOut status={401} />
+      </main>
+    );
   }
 
   return (
     <main>
-      <LogOut status={apiStatus}/>
       <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('${promotion?.background.path}')` }} >
         <PromotionParticipationForm doc_number={id} promotion={promotion} premise={premise} participant={participant}/>
       </div>
