@@ -1,7 +1,5 @@
 import { fetchActivePromotion } from '@/app/lib/data/promotions';
 import { ApiResponse, Promotion, TokenPremise } from '@/app/lib/definitions';
-import { userSignOut } from '@/app/lib/sign-out';
-import { LogOut } from '@/app/ui/components/logOut';
 import { PromotionWelcomeForm } from '@/app/ui/components/promotion/promotion-welcome-form';
 import { auth } from '@/auth';
 import { Metadata } from 'next';
@@ -31,31 +29,10 @@ export default async function Page() {
           redirect('/promotion/unavailable')
         }
     } catch (error) {
-      if (error instanceof Error) {
-        const errWithStatus = error as Error & { status?: number };
-        if (errWithStatus.status) {
-           apiStatus = errWithStatus.status;
-           if(apiStatus!=401){
-            throw error;
-           }else{
-            return(
-              <main>
-                <LogOut status={apiStatus}/>
-              </main>
-              )
-           }
-        }
-      }else{
         throw error;
-      }
     }
   } else {
-    console.warn('No session found.');
-    return (
-      <main>
-        <LogOut status={401} />
-      </main>
-    );
+
   }
     return (
       <main>

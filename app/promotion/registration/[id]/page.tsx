@@ -2,7 +2,6 @@ import { fetchParticipantByDocumentNumber } from '@/app/lib/data/participants';
 import { fetchPremiseById } from '@/app/lib/data/premises';
 import { fetchActivePromotion } from '@/app/lib/data/promotions';
 import { ApiResponse, Participant, Premise, Promotion, TokenPremise } from '@/app/lib/definitions';
-import { LogOut } from '@/app/ui/components/logOut';
 import { PromotionParticipationForm } from '@/app/ui/components/promotion/promotion-participation-form';
 import { auth } from '@/auth';
 import { Metadata } from 'next';
@@ -34,31 +33,9 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
       participant = participantResponse.data;
 
     } catch (error) {
-      if (error instanceof Error) {
-        const errWithStatus = error as Error & { status?: number };
-        if (errWithStatus.status) {
-           apiStatus = errWithStatus.status;
-           if(apiStatus!=401){
-            throw error;
-           }else{
-            return(
-              <main>
-                <LogOut status={apiStatus}/>
-              </main>
-              )
-           }
-        }
-      }else{
         throw error;
-      }
     }
   } else {
-    console.warn('No session found.');
-    return (
-      <main>
-        <LogOut status={401} />
-      </main>
-    );
   }
 
   return (
