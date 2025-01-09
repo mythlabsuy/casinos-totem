@@ -11,6 +11,7 @@ interface BaseInputProps {
   errors?: string[];
   disabled?: boolean;
   readOnly?: boolean;
+  onInput?:  (event: React.FormEvent<HTMLInputElement>) => void,
 }
 
 interface InputProps extends BaseInputProps {
@@ -32,7 +33,7 @@ interface NumberInputProps extends BaseInputProps {
   max?: number;
 }
 
-export function TextInput({ id, name, placeholder, className, defaultValue = '', label = '', icon, errors, disabled = false, ...rest }: TextInputProps ) {
+export function TextInput({ id, name, placeholder, className, defaultValue = '', label = '', icon, errors, disabled = false, onInput, ...rest }: TextInputProps ) {
   return (
     <Input id={id} 
     name={name} 
@@ -44,6 +45,7 @@ export function TextInput({ id, name, placeholder, className, defaultValue = '',
     errors={errors} 
     type='text' 
     disabled = {disabled}
+    onInput={onInput}
     {...rest}
     />
   );
@@ -103,7 +105,7 @@ export function PasswordInput({ id, name, placeholder, className, defaultValue =
   );
 }
 
-export default function Input({ id, name, placeholder, className, defaultValue, label = '', icon, errors, type, step, min, max, disabled = false, ...rest }: InputProps ) {
+export default function Input({ id, name, placeholder, className, defaultValue, label = '', icon, errors, type, step, min, max, disabled = false, onInput, ...rest }: InputProps ) {
   return (
     <>
       <label htmlFor={id} className="mb-2 ml-1 block text-2xl font-medium text-gray-700">
@@ -127,6 +129,7 @@ export default function Input({ id, name, placeholder, className, defaultValue, 
             aria-describedby={`${id}-error`}
             defaultValue={ defaultValue }
             disabled = {disabled}
+            onInput={onInput}
             {...rest}
           />
           { icon ? 

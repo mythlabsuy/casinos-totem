@@ -25,7 +25,7 @@ const ParticipateFormSchema = z.object({
   full_name: z.string({
     required_error: 'Por favor ingrese su nombre completo.',
   }).min(1,{message: 'Por favor ingrese su nombre completo.'}),
-  phone_number: z.coerce.number({
+  phone_number: z.string({
     invalid_type_error: 'Por favor ingrese un número de teléfono.',
   }).min(1, {message: 'Por favor ingrese un número de teléfono.'}),
   email: z.string().email("Por favor ingrese un mail válido (ejemplo@gmail.com).").or(z.literal('')),

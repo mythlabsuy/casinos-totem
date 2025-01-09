@@ -51,7 +51,10 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
   const Over18Label: LabelProps = { start: 'Soy mayor de 18' }
   const TosLabel: LabelProps = { start: 'Acepto los', hrefText: 'términos y condiciones', href: promotion?.terms_and_conditions.path, end: 'del sorteo.', modalTitle: 'Términos y condiciones'}
   const PrivacyPolicyLabel: LabelProps = { start: 'Acepto las', hrefText: 'políticas de privacidad', href: premise?.privacy_policy.path, end: 'del organizador.', modalTitle: 'Políticas de privacidad'}
-  
+  const handleNumericInput = (event: React.FormEvent<HTMLInputElement>) => {
+    const input = event.currentTarget;
+    input.value = input.value.replace(/\D/g, "");
+  };
   return (
     <div className="flex justify-center items-center min-h-screen">
       <CardTranslucid title={promotion ? promotion.name : ''}> 
@@ -72,10 +75,11 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
             label="Nombre y Apellido"/>
           </div>
           <div className="pt-4">
-            <NumberInput id={'phone_number'} name="phone_number" className="text-2xl rounded-2xl bg-transparent border-black" icon="DevicePhoneMobileIcon" 
+            <TextInput id={'phone_number'} name="phone_number" className="text-2xl rounded-2xl bg-transparent border-black" icon="DevicePhoneMobileIcon" 
             defaultValue={formData.phone_number || participant?.phone_number || ''}
-            label="Teléfono" step={1}
+            label="Teléfono"
             errors={state?.errors ? state.errors.phone_number : undefined}
+            onInput={handleNumericInput}
             />
           </div>
           <div className="pt-4">
