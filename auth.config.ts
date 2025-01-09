@@ -68,7 +68,7 @@ async function refreshAccessToken(token: Record<string, any>) {
       'Content-type' : 'application/json',
     },);
 
-    const response = await fetch(`${API_HOST}auth/rrefresh-token`,
+    const response = await fetch(`${API_HOST}auth/refresh-token`,
       {
         method: 'POST',
         body: JSON.stringify(body),
