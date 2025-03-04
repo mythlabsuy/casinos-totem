@@ -81,7 +81,8 @@ export function PromotionWelcomeForm( { promotion, premiseId } : Props ) {
                 }} 
                 className="flex h-10 items-center justify-items-center rounded-2xl bg-primary-600 py-8 text-2xl 
                 font-medium text-white transition-colors hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 
-                focus-visible:outline-offset-2 focus-visible:outline-primary-600 uppercase w-96 text-center mt-4" disabled={loading}>Participar Ahora</SubmitButton>
+                focus-visible:outline-offset-2 focus-visible:outline-primary-600 uppercase w-96 text-center mt-4" 
+                disabled={loading}>Participar Ahora</SubmitButton>
               { loading ? <InfiniteProgressBar color="bg-violet-700"/> : null }
             </div>
           </form>

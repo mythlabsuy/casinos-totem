@@ -36,6 +36,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         throw error;
     }
   } else {
+    //TODO Ver que hacer aca
   }
 
   return (

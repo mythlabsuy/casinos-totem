@@ -1,14 +1,15 @@
 'use client'
 
 import { CardTranslucid } from "../card-translucid";
-import { EmailInput, FormFieldsErrors, NumberInput, TextInput } from "../form-fields/input";
+import { FormFieldsErrors, TextInput } from "../form-fields/input";
 import SwitchWithIcon, { LabelProps } from "../form-fields/switch";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { Participant, Premise, Promotion } from "@/app/lib/definitions";
 
 import { createOrUpdateParticipant, ParticipateFormState } from '@/app/lib/actions/participate'
 import { SubmitButton } from "../../button";
 import Swal from "sweetalert2";
+import { InfiniteProgressBar } from "../infinite-progress";
 
 interface Props {
   doc_number: string;
@@ -22,11 +23,14 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
 
   const [state, formAction] = useActionState(createOrUpdateParticipant, initialState);
   const [formData, setFormData] = useState<any>({});
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [isOver18, setIsOver18] = useState<boolean>(state.formData.is_over_18 || participant?.over_18 || true);
   const [acceptsTos, setAcceptsTos] = useState<boolean>(state.formData.accepts_tos || participant?.accepts_terms_of_service || true);
   const [acceptsPrivacyPolicy, setAcceptsPrivacyPolicy] = useState<boolean>(state.formData.accepts_privacy_policy || participant?.accepts_privacy_policy || true);
 
+  const formRef = useRef<HTMLFormElement>(null);
+  
   useEffect(() => {
     if (state && state?.errors) {
       setFormData(state.formData || {});
@@ -61,7 +65,7 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
         <div className="text-2xl text-gray-700">
           {promotion ? promotion.description : ''}
         </div>
-        <form action={formAction}>
+        <form action={formAction} ref={formRef}>
           <input id="promotion_id" name="promotion_id" type="hidden" value={promotion?.id}/>
           <div className="pt-4">
             <TextInput id='document' name="document" className="w-96 text-2xl rounded-2xl bg-transparent border-black" icon="IdentificationIcon"
@@ -112,10 +116,20 @@ export function PromotionParticipationForm({ participant, doc_number, promotion,
             { state?.errors.accepts_tos ? <FormFieldsErrors errors={ state.errors.accepts_tos }/> : null}
             { state?.errors.accepts_privacy_policy ? <FormFieldsErrors errors={ state.errors.accepts_privacy_policy }/> : null}
           </div> : null}
-          <div className="mt-6 mb-3 flex justify-center">
+          <div className="mt-6 flex flex-col gap-1 items-center justify-center">
             <SubmitButton type="submit" className="flex h-10 items-center justify-items-center rounded-2xl bg-primary-600 py-8 text-2xl 
               font-medium text-white transition-colors hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 
-              focus-visible:outline-offset-2 focus-visible:outline-primary-600 uppercase w-96 text-center">Participar Ahora</SubmitButton>
+              focus-visible:outline-offset-2 focus-visible:outline-primary-600 uppercase w-96 text-center mt-4"
+              onClick={() => { 
+                setLoading(true);
+                // Changing the button to disabled status stops the form submission. This submits the form again.
+                if (formRef.current) {
+                  formRef.current.requestSubmit();
+                }
+              }} 
+              disabled={loading}
+              >Participar Ahora</SubmitButton>
+              { loading ? <InfiniteProgressBar color="bg-violet-700"/> : null }
           </div>
         </form>
       </CardTranslucid>
