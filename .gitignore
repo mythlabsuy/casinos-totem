@@ -130,3 +130,10 @@ dist
 .pnp.*
 
 .DS_Store
+
+# Sentry Config File
+.env.sentry-build-plugin
+
+app/api/sentry-example-api/
+
+app/sentry-example-page/
